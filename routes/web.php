@@ -94,6 +94,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/subcategories', [SubcategoryController::class, 'store'])
         ->name('subcategories.store');
 
+    Route::delete('/subcategories/{subcategory}', [SubcategoryController::class, 'destroy'])
+    ->name('subcategories.destroy');
+
 
     /*
     |--------------------------------------------------------------------------
