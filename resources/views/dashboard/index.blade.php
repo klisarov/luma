@@ -10,7 +10,11 @@
 
             <div>
                 <p class="text-sm text-muted">
-                    {{ now()->translatedFormat('l, j F') }}
+                    {{
+                        now()
+                            ->locale(app()->getLocale())
+                            ->translatedFormat('l, j F')
+                    }}
                 </p>
 
                 <h1 class="font-display text-2xl font-semibold text-paper sm:text-3xl">

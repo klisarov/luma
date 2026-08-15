@@ -1,28 +1,43 @@
 <x-layouts.app :title="$category->name">
+
     <div class="mx-auto max-w-4xl space-y-6">
 
         {{-- ============================================================ --}}
         {{-- HEADER --}}
         {{-- ============================================================ --}}
 
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div
+            class="
+                flex flex-col gap-4
+                sm:flex-row
+                sm:items-center
+                sm:justify-between
+            "
+        >
 
             <div class="flex items-center gap-3">
+
                 <span
                     class="h-3 w-3 shrink-0 rounded-full"
                     style="background-color: {{ $category->color ?? '#F5B942' }}"
                 ></span>
 
                 <div>
+
                     <h1 class="font-display text-2xl font-semibold text-paper">
                         {{ $category->name }}
                     </h1>
 
                     <p class="mt-1 text-sm text-muted">
-                        {{ $category->tasks->count() }}
-                        task{{ $category->tasks->count() === 1 ? '' : 's' }}
+                        {{ trans_choice(
+                            'luma.categories.task_count',
+                            $category->tasks->count(),
+                            ['count' => $category->tasks->count()]
+                        ) }}
                     </p>
+
                 </div>
+
             </div>
 
         </div>
@@ -33,21 +48,47 @@
         {{-- ============================================================ --}}
 
         @if (session('status'))
-            <div class="rounded-xl border border-sage/20 bg-sage/10 px-4 py-3 text-sm text-sage">
+
+            <div
+                class="
+                    rounded-xl
+                    border border-sage/20
+                    bg-sage/10
+                    px-4 py-3
+                    text-sm text-sage
+                "
+            >
                 {{ session('status') }}
             </div>
+
         @endif
 
+
         @if ($errors->any())
-            <div class="rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3">
+
+            <div
+                class="
+                    rounded-xl
+                    border border-red-500/20
+                    bg-red-500/10
+                    px-4 py-3
+                "
+            >
+
                 <ul class="space-y-1 text-sm text-red-400">
+
                     @foreach ($errors->all() as $error)
+
                         <li>
                             {{ $error }}
                         </li>
+
                     @endforeach
+
                 </ul>
+
             </div>
+
         @endif
 
 
@@ -55,19 +96,45 @@
         {{-- SUBCATEGORIES --}}
         {{-- ============================================================ --}}
 
-        <div class="rounded-xl2 border border-ink-700 bg-ink-800/60">
+        <section
+            class="
+                overflow-hidden
+                rounded-xl2
+                border border-ink-700
+                bg-ink-800/60
+            "
+        >
 
             <div class="border-b border-ink-700 px-5 py-4">
-                <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+
+                <div
+                    class="
+                        flex flex-col gap-4
+                        sm:flex-row
+                        sm:items-center
+                        sm:justify-between
+                    "
+                >
 
                     <div>
-                        <h2 class="font-display text-base font-semibold text-paper">
-                            Subcategories
+
+                        <h2
+                            class="
+                                font-display
+                                text-base font-semibold
+                                text-paper
+                            "
+                        >
+                            {{ __('luma.categories.subcategories') }}
                         </h2>
 
                         <p class="mt-1 text-xs text-muted">
-                            Organize tasks inside {{ $category->name }}.
+                            {{ __(
+                                'luma.categories.organize_tasks',
+                                ['category' => $category->name]
+                            ) }}
                         </p>
+
                     </div>
 
 
@@ -77,6 +144,7 @@
                         action="{{ route('subcategories.store') }}"
                         class="flex gap-2"
                     >
+
                         @csrf
 
                         <input
@@ -89,7 +157,7 @@
                             type="text"
                             name="name"
                             value="{{ old('name') }}"
-                            placeholder="Subcategory name"
+                            placeholder="{{ __('luma.categories.subcategory_name') }}"
                             required
                             class="
                                 min-w-0
@@ -116,11 +184,13 @@
                                 hover:brightness-110
                             "
                         >
-                            Add
+                            {{ __('luma.common.add') }}
                         </button>
+
                     </form>
 
                 </div>
+
             </div>
 
 
@@ -129,17 +199,33 @@
 
                 @forelse ($category->subcategories as $subcategory)
 
-                    <div class="flex items-center justify-between gap-4 px-5 py-3.5">
+                    <div
+                        class="
+                            flex items-center
+                            justify-between
+                            gap-4
+                            px-5 py-3.5
+                        "
+                    >
 
                         <div class="min-w-0">
 
-                            <p class="truncate text-sm font-medium text-paper">
+                            <p
+                                class="
+                                    truncate
+                                    text-sm font-medium
+                                    text-paper
+                                "
+                            >
                                 {{ $subcategory->name }}
                             </p>
 
                             <p class="mt-0.5 text-xs text-muted">
-                                {{ $subcategory->tasks->count() }}
-                                task{{ $subcategory->tasks->count() === 1 ? '' : 's' }}
+                                {{ trans_choice(
+                                    'luma.categories.task_count',
+                                    $subcategory->tasks->count(),
+                                    ['count' => $subcategory->tasks->count()]
+                                ) }}
                             </p>
 
                         </div>
@@ -148,9 +234,10 @@
                         <form
                             method="POST"
                             action="{{ route('subcategories.destroy', $subcategory) }}"
-                            onsubmit="return confirm('Delete this subcategory? Tasks will remain.')"
+                            onsubmit="return confirm(@js(__('luma.categories.delete_subcategory_confirm')))"
                             class="shrink-0"
                         >
+
                             @csrf
                             @method('DELETE')
 
@@ -165,8 +252,9 @@
                                     hover:text-red-400
                                 "
                             >
-                                Remove
+                                {{ __('luma.common.remove') }}
                             </button>
+
                         </form>
 
                     </div>
@@ -174,44 +262,67 @@
                 @empty
 
                     <div class="px-5 py-8 text-center">
+
                         <p class="text-sm text-muted">
-                            No subcategories yet.
+                            {{ __('luma.categories.no_subcategories') }}
                         </p>
+
                     </div>
 
                 @endforelse
 
             </div>
 
-        </div>
+        </section>
 
 
         {{-- ============================================================ --}}
         {{-- ADD TASK --}}
         {{-- ============================================================ --}}
 
-        <div class="rounded-xl2 border border-ink-700 bg-ink-800/60">
+        <section
+            class="
+                overflow-hidden
+                rounded-xl2
+                border border-ink-700
+                bg-ink-800/60
+            "
+        >
 
             <div class="border-b border-ink-700 px-5 py-4">
-                <h2 class="font-display text-base font-semibold text-paper">
-                    Add task
+
+                <h2
+                    class="
+                        font-display
+                        text-base font-semibold
+                        text-paper
+                    "
+                >
+                    {{ __('luma.categories.add_task') }}
                 </h2>
 
                 <p class="mt-1 text-xs text-muted">
-                    Add a new task to {{ $category->name }}.
+                    {{ __(
+                        'luma.categories.add_task_description',
+                        ['category' => $category->name]
+                    ) }}
                 </p>
+
             </div>
 
 
             <form
                 method="POST"
                 action="{{ route('tasks.store') }}"
-                class="grid gap-4 p-5 sm:grid-cols-2"
+                class="
+                    grid gap-4
+                    p-5
+                    sm:grid-cols-2
+                "
             >
+
                 @csrf
 
-
-                {{-- Current category --}}
                 <input
                     type="hidden"
                     name="category_id"
@@ -223,36 +334,36 @@
                 <div class="sm:col-span-2">
 
                     <label
-                        for="task-title"
-                        class="mb-1.5 block text-xs font-medium text-muted"
+                        for="title"
+                        class="
+                            mb-1.5
+                            block
+                            text-xs font-medium
+                            text-muted
+                        "
                     >
-                        Title
+                        {{ __('luma.categories.task_title') }}
                     </label>
 
                     <input
-                        id="task-title"
+                        id="title"
                         type="text"
                         name="title"
                         value="{{ old('title') }}"
-                        placeholder="What needs to be done?"
                         required
+                        placeholder="{{ __('luma.categories.task_title_placeholder') }}"
                         class="
                             w-full
-                            rounded-md
+                            rounded-lg
                             border-ink-600
-                            bg-ink-800
-                            text-sm text-paper
-                            placeholder:text-muted/60
+                            bg-ink-900
+                            text-sm
+                            text-paper
+                            placeholder:text-muted/50
                             focus:border-glow
                             focus:ring-glow
                         "
                     >
-
-                    @error('title')
-                        <p class="mt-1 text-xs text-red-400">
-                            {{ $message }}
-                        </p>
-                    @enderror
 
                 </div>
 
@@ -261,45 +372,50 @@
                 <div>
 
                     <label
-                        for="task-subcategory"
-                        class="mb-1.5 block text-xs font-medium text-muted"
+                        for="subcategory_id"
+                        class="
+                            mb-1.5
+                            block
+                            text-xs font-medium
+                            text-muted
+                        "
                     >
-                        Subcategory
+                        {{ __('luma.categories.subcategory') }}
                     </label>
 
                     <select
-                        id="task-subcategory"
+                        id="subcategory_id"
                         name="subcategory_id"
                         class="
                             w-full
-                            rounded-md
+                            rounded-lg
                             border-ink-600
-                            bg-ink-800
-                            text-sm text-paper
+                            bg-ink-900
+                            text-sm
+                            text-paper
                             focus:border-glow
                             focus:ring-glow
                         "
                     >
+
                         <option value="">
-                            No subcategory
+                            {{ __('luma.categories.no_subcategory') }}
                         </option>
 
                         @foreach ($category->subcategories as $subcategory)
+
                             <option
                                 value="{{ $subcategory->id }}"
-                                @selected(old('subcategory_id') == $subcategory->id)
+                                @selected(
+                                    old('subcategory_id') == $subcategory->id
+                                )
                             >
                                 {{ $subcategory->name }}
                             </option>
+
                         @endforeach
 
                     </select>
-
-                    @error('subcategory_id')
-                        <p class="mt-1 text-xs text-red-400">
-                            {{ $message }}
-                        </p>
-                    @enderror
 
                 </div>
 
@@ -308,56 +424,58 @@
                 <div>
 
                     <label
-                        for="task-priority"
-                        class="mb-1.5 block text-xs font-medium text-muted"
+                        for="priority"
+                        class="
+                            mb-1.5
+                            block
+                            text-xs font-medium
+                            text-muted
+                        "
                     >
-                        Priority
+                        {{ __('luma.categories.priority') }}
                     </label>
 
                     <select
-                        id="task-priority"
+                        id="priority"
                         name="priority"
                         class="
                             w-full
-                            rounded-md
+                            rounded-lg
                             border-ink-600
-                            bg-ink-800
-                            text-sm text-paper
+                            bg-ink-900
+                            text-sm
+                            text-paper
                             focus:border-glow
                             focus:ring-glow
                         "
                     >
+
                         <option value="">
-                            No priority
+                            {{ __('luma.categories.no_priority') }}
                         </option>
 
                         <option
                             value="low"
                             @selected(old('priority') === 'low')
                         >
-                            Low
+                            {{ __('luma.common.low') }}
                         </option>
 
                         <option
                             value="medium"
                             @selected(old('priority') === 'medium')
                         >
-                            Medium
+                            {{ __('luma.common.medium') }}
                         </option>
 
                         <option
                             value="high"
                             @selected(old('priority') === 'high')
                         >
-                            High
+                            {{ __('luma.common.high') }}
                         </option>
-                    </select>
 
-                    @error('priority')
-                        <p class="mt-1 text-xs text-red-400">
-                            {{ $message }}
-                        </p>
-                    @enderror
+                    </select>
 
                 </div>
 
@@ -366,33 +484,33 @@
                 <div>
 
                     <label
-                        for="task-due-at"
-                        class="mb-1.5 block text-xs font-medium text-muted"
+                        for="due_at"
+                        class="
+                            mb-1.5
+                            block
+                            text-xs font-medium
+                            text-muted
+                        "
                     >
-                        Due date
+                        {{ __('luma.categories.due_at') }}
                     </label>
 
                     <input
-                        id="task-due-at"
+                        id="due_at"
                         type="datetime-local"
                         name="due_at"
                         value="{{ old('due_at') }}"
                         class="
                             w-full
-                            rounded-md
+                            rounded-lg
                             border-ink-600
-                            bg-ink-800
-                            text-sm text-paper
+                            bg-ink-900
+                            text-sm
+                            text-paper
                             focus:border-glow
                             focus:ring-glow
                         "
                     >
-
-                    @error('due_at')
-                        <p class="mt-1 text-xs text-red-400">
-                            {{ $message }}
-                        </p>
-                    @enderror
 
                 </div>
 
@@ -401,63 +519,65 @@
                 <div>
 
                     <label
-                        for="task-reminder"
-                        class="mb-1.5 block text-xs font-medium text-muted"
+                        for="reminder_offset_minutes"
+                        class="
+                            mb-1.5
+                            block
+                            text-xs font-medium
+                            text-muted
+                        "
                     >
-                        Reminder
+                        {{ __('luma.categories.reminder') }}
                     </label>
 
                     <select
-                        id="task-reminder"
+                        id="reminder_offset_minutes"
                         name="reminder_offset_minutes"
                         class="
                             w-full
-                            rounded-md
+                            rounded-lg
                             border-ink-600
-                            bg-ink-800
-                            text-sm text-paper
+                            bg-ink-900
+                            text-sm
+                            text-paper
                             focus:border-glow
                             focus:ring-glow
                         "
                     >
+
                         <option value="">
-                            No reminder
+                            {{ __('luma.categories.no_reminder') }}
                         </option>
 
                         <option
                             value="15"
-                            @selected(old('reminder_offset_minutes') == '15')
+                            @selected(old('reminder_offset_minutes') == 15)
                         >
-                            15 minutes before
+                            {{ __('luma.categories.reminder_15') }}
                         </option>
 
                         <option
                             value="30"
-                            @selected(old('reminder_offset_minutes') == '30')
+                            @selected(old('reminder_offset_minutes') == 30)
                         >
-                            30 minutes before
+                            {{ __('luma.categories.reminder_30') }}
                         </option>
 
                         <option
                             value="60"
-                            @selected(old('reminder_offset_minutes') == '60')
+                            @selected(old('reminder_offset_minutes') == 60)
                         >
-                            1 hour before
+                            {{ __('luma.categories.reminder_60') }}
                         </option>
 
                         <option
                             value="1440"
-                            @selected(old('reminder_offset_minutes') == '1440')
+                            @selected(old('reminder_offset_minutes') == 1440)
                         >
-                            1 day before
+                            {{ __('luma.categories.reminder_day') }}
                         </option>
-                    </select>
 
-                    @error('reminder_offset_minutes')
-                        <p class="mt-1 text-xs text-red-400">
-                            {{ $message }}
-                        </p>
-                    @enderror
+                    </select>
 
                 </div>
 
@@ -466,35 +586,35 @@
                 <div class="sm:col-span-2">
 
                     <label
-                        for="task-description"
-                        class="mb-1.5 block text-xs font-medium text-muted"
+                        for="description"
+                        class="
+                            mb-1.5
+                            block
+                            text-xs font-medium
+                            text-muted
+                        "
                     >
-                        Description
+                        {{ __('luma.common.description') }}
                     </label>
 
                     <textarea
-                        id="task-description"
+                        id="description"
                         name="description"
                         rows="3"
-                        placeholder="Optional notes..."
+                        placeholder="{{ __('luma.categories.description_placeholder') }}"
                         class="
                             w-full
-                            resize-y
-                            rounded-md
+                            resize-none
+                            rounded-lg
                             border-ink-600
-                            bg-ink-800
-                            text-sm text-paper
-                            placeholder:text-muted/60
+                            bg-ink-900
+                            text-sm
+                            text-paper
+                            placeholder:text-muted/50
                             focus:border-glow
                             focus:ring-glow
                         "
                     >{{ old('description') }}</textarea>
-
-                    @error('description')
-                        <p class="mt-1 text-xs text-red-400">
-                            {{ $message }}
-                        </p>
-                    @enderror
 
                 </div>
 
@@ -510,12 +630,9 @@
 
                     <label
                         class="
-                            flex cursor-pointer
-                            items-center gap-3
-                            rounded-md
-                            border border-ink-600
-                            bg-ink-800
-                            px-3 py-2.5
+                            inline-flex
+                            cursor-pointer
+                            items-center gap-2.5
                             text-sm text-muted
                         "
                     >
@@ -535,7 +652,7 @@
                         >
 
                         <span>
-                            Work related
+                            {{ __('luma.categories.work_related') }}
                         </span>
 
                     </label>
@@ -543,42 +660,67 @@
                 </div>
 
 
-                {{-- Submit --}}
-                <div class="sm:col-span-2">
+                <div
+                    class="
+                        flex justify-end
+                        border-t border-ink-700
+                        pt-4
+                        sm:col-span-2
+                    "
+                >
 
                     <button
                         type="submit"
                         class="
-                            w-full
-                            rounded-md
+                            rounded-lg
                             bg-glow
-                            px-4 py-2.5
+                            px-5 py-2.5
                             text-sm font-semibold
                             text-ink-950
                             transition
                             hover:brightness-110
                         "
                     >
-                        Add task
+                        {{ __('luma.categories.add_task') }}
                     </button>
 
                 </div>
 
             </form>
 
-        </div>
+        </section>
 
 
         {{-- ============================================================ --}}
         {{-- TASKS --}}
         {{-- ============================================================ --}}
 
-        <div class="rounded-xl2 border border-ink-700 bg-ink-800/60">
+        <section
+            class="
+                overflow-hidden
+                rounded-xl2
+                border border-ink-700
+                bg-ink-800/60
+            "
+        >
 
-            <div class="flex items-center justify-between border-b border-ink-700 px-5 py-4">
+            <div
+                class="
+                    flex items-center
+                    justify-between
+                    border-b border-ink-700
+                    px-5 py-4
+                "
+            >
 
-                <h2 class="font-display text-base font-semibold text-paper">
-                    Tasks
+                <h2
+                    class="
+                        font-display
+                        text-base font-semibold
+                        text-paper
+                    "
+                >
+                    {{ __('luma.categories.tasks') }}
                 </h2>
 
                 <span class="font-mono text-xs text-muted">
@@ -592,21 +734,30 @@
 
                 @forelse ($category->tasks as $task)
 
-                    <div class="flex items-center gap-3 px-5 py-3.5">
+                    <div
+                        class="
+                            flex items-center
+                            gap-3
+                            px-5 py-3.5
+                        "
+                    >
 
-                        {{-- Completion indicator --}}
+                        {{-- Completion --}}
                         <span
                             class="
                                 flex h-5 w-5 shrink-0
                                 items-center justify-center
                                 rounded-full border
+
                                 {{ $task->is_completed
                                     ? 'border-sage bg-sage/20'
                                     : 'border-ink-600'
                                 }}
                             "
                         >
+
                             @if ($task->is_completed)
+
                                 <svg
                                     class="h-3 w-3 text-sage"
                                     viewBox="0 0 24 24"
@@ -620,16 +771,20 @@
                                         d="M5 13l4 4L19 7"
                                     />
                                 </svg>
+
                             @endif
+
                         </span>
 
 
-                        {{-- Task content --}}
+                        {{-- Task --}}
                         <div class="min-w-0 flex-1">
 
                             <p
                                 class="
-                                    truncate text-sm font-medium
+                                    truncate
+                                    text-sm font-medium
+
                                     {{ $task->is_completed
                                         ? 'text-muted line-through'
                                         : 'text-paper'
@@ -640,24 +795,40 @@
                             </p>
 
 
-                            <div class="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted">
+                            <div
+                                class="
+                                    mt-1
+                                    flex flex-wrap
+                                    items-center gap-2
+                                    text-xs text-muted
+                                "
+                            >
 
-                                {{-- Subcategory --}}
                                 @if ($task->subcategory)
+
                                     <span>
                                         {{ $task->subcategory->name }}
                                     </span>
+
                                 @endif
 
 
-                                {{-- Due --}}
                                 @if ($task->due_at)
 
                                     <span class="font-mono">
-                                        {{ $task->due_at->format('j M · H:i') }}
+                                        {{
+                                            $task->due_at
+                                                ->locale(app()->getLocale())
+                                                ->translatedFormat('j M · H:i')
+                                        }}
                                     </span>
 
-                                    @if (!$task->is_completed && $task->due_at->isPast())
+
+                                    @if (
+                                        !$task->is_completed &&
+                                        $task->due_at->isPast()
+                                    )
+
                                         <span
                                             class="
                                                 rounded-full
@@ -668,24 +839,26 @@
                                                 text-red-400
                                             "
                                         >
-                                            Overdue
+                                            {{ __('luma.common.overdue') }}
                                         </span>
+
                                     @endif
 
                                 @else
 
                                     <span class="font-mono">
-                                        No deadline
+                                        {{ __('luma.common.no_deadline') }}
                                     </span>
 
                                 @endif
 
 
-                                {{-- Priority --}}
                                 @if ($task->priority)
-                                    <span class="capitalize">
-                                        {{ $task->priority }}
+
+                                    <span>
+                                        {{ __('luma.common.' . $task->priority) }}
                                     </span>
+
                                 @endif
 
                             </div>
@@ -693,8 +866,8 @@
                         </div>
 
 
-                        {{-- Work --}}
                         @if ($task->is_work_related)
+
                             <span
                                 class="
                                     shrink-0
@@ -706,8 +879,9 @@
                                     text-violet-soft
                                 "
                             >
-                                Work
+                                {{ __('luma.common.work') }}
                             </span>
+
                         @endif
 
                     </div>
@@ -715,16 +889,19 @@
                 @empty
 
                     <div class="px-5 py-10 text-center">
+
                         <p class="text-sm text-muted">
-                            No tasks in this category yet.
+                            {{ __('luma.categories.no_tasks') }}
                         </p>
+
                     </div>
 
                 @endforelse
 
             </div>
 
-        </div>
+        </section>
 
     </div>
+
 </x-layouts.app>

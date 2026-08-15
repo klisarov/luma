@@ -264,7 +264,7 @@
                                 />
                             </svg>
 
-                            Today
+                            {{ __('luma.nav.today') }}
                         </a>
 
 
@@ -305,7 +305,7 @@
                                 />
                             </svg>
 
-                            Work log
+                            {{ __('luma.nav.work_log') }}
                         </a>
 
 
@@ -402,7 +402,7 @@
                                 text-muted/70
                             "
                         >
-                            Categories
+                            {{ __('luma.nav.categories') }}
                         </p>
 
 
@@ -588,6 +588,7 @@
 
                 </nav>
 
+                <x-locale-switcher />
 
                 {{-- ===================================================== --}}
                 {{-- MOBILE PROFILE / LOGOUT --}}
@@ -812,7 +813,7 @@
                             />
                         </svg>
 
-                        Today
+                        {{ __('luma.nav.today') }}
                     </a>
 
 
@@ -852,7 +853,7 @@
                             />
                         </svg>
 
-                        Work log
+                        {{ __('luma.nav.work_log') }}
                     </a>
 
 
@@ -947,7 +948,7 @@
                             text-muted/70
                         "
                     >
-                        Categories
+                        {{ __('luma.nav.categories') }}
                     </p>
 
 

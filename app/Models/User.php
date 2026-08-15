@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use NotificationChannels\WebPush\HasPushSubscriptions;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasLocalePreference
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasPushSubscriptions;
@@ -35,9 +36,36 @@ class User extends Authenticatable
         ];
     }
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Locale
+    |--------------------------------------------------------------------------
+    */
+
+    public function preferredLocale(): string
+    {
+        return in_array(
+            $this->locale,
+            ['en', 'mk'],
+            true
+        )
+            ? $this->locale
+            : 'en';
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relationships
+    |--------------------------------------------------------------------------
+    */
+
     public function categories(): HasMany
     {
-        return $this->hasMany(Category::class)->orderBy('sort_order');
+        return $this
+            ->hasMany(Category::class)
+            ->orderBy('sort_order');
     }
 
     public function tasks(): HasMany
@@ -47,7 +75,9 @@ class User extends Authenticatable
 
     public function calendars(): HasMany
     {
-        return $this->hasMany(Calendar::class)->orderBy('sort_order');
+        return $this
+            ->hasMany(Calendar::class)
+            ->orderBy('sort_order');
     }
 
     public function workoutPlans(): HasMany
@@ -60,29 +90,42 @@ class User extends Authenticatable
         return $this->hasMany(MonthlyCheckin::class);
     }
 
-    /**
-     * Tasks due today, used by the dashboard "today's plan" widget.
-     */
+
+    /*
+    |--------------------------------------------------------------------------
+    | Dashboard Helpers
+    |--------------------------------------------------------------------------
+    */
+
     public function todaysTasks(): HasMany
     {
-        return $this->tasks()
-            ->whereDate('due_at', now($this->timezone)->toDateString())
+        return $this
+            ->tasks()
+            ->whereDate(
+                'due_at',
+                now($this->timezone)->toDateString()
+            )
             ->orderBy('due_at');
     }
 
-    /**
-     * Percentage of today's tasks completed.
-     */
     public function todaysCompletionPercentage(): int
     {
-        $today = $this->todaysTasks()->get();
+        $today = $this
+            ->todaysTasks()
+            ->get();
 
         if ($today->isEmpty()) {
             return 0;
         }
 
         return (int) round(
-            ($today->where('is_completed', true)->count() / $today->count()) * 100
+            (
+                $today
+                    ->where('is_completed', true)
+                    ->count()
+                /
+                $today->count()
+            ) * 100
         );
     }
 }

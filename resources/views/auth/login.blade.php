@@ -56,6 +56,10 @@
 
 <body class="min-h-full bg-ink-950 text-paper antialiased">
 
+    <div class="absolute right-5 top-5 z-20">
+        <x-locale-switcher />
+    </div>
+
     <main class="relative min-h-screen overflow-hidden">
 
         {{-- ============================================================ --}}
