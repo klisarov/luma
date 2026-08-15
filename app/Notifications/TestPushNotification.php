@@ -23,8 +23,8 @@ class TestPushNotification extends Notification
         Notification $notification
     ): WebPushMessage {
         return (new WebPushMessage)
-            ->title('Luma')
-            ->body('Laravel Web Push is working 🎉')
+            ->title('Luma - Notification')
+            ->body('peder si')
             ->icon('/icons/icon-192.png')
             ->badge('/icons/icon-192.png')
             ->data([
