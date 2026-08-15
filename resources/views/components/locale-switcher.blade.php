@@ -2,9 +2,9 @@
     class="
         inline-flex
         items-center
+        gap-1
         rounded-lg
-        border
-        border-ink-700
+        border border-ink-700
         bg-ink-900
         p-1
     "
@@ -31,12 +31,14 @@
                 rounded-md
                 px-2.5
                 text-xs
-                font-semibold
-                transition
+                font-bold
+                tracking-wide
+                transition-all
+                duration-200
 
                 {{ app()->isLocale('en')
-                    ? 'bg-glow text-ink-950'
-                    : 'text-muted hover:bg-ink-800 hover:text-paper'
+                    ? 'bg-glow text-black shadow-sm'
+                    : 'bg-transparent text-gray-500 hover:bg-ink-800 hover:text-gray-200'
                 }}
             "
         >
@@ -66,12 +68,14 @@
                 rounded-md
                 px-2.5
                 text-xs
-                font-semibold
-                transition
+                font-bold
+                tracking-wide
+                transition-all
+                duration-200
 
                 {{ app()->isLocale('mk')
-                    ? 'bg-glow text-ink-950'
-                    : 'text-muted hover:bg-ink-800 hover:text-paper'
+                    ? 'bg-glow text-black shadow-sm'
+                    : 'bg-transparent text-gray-500 hover:bg-ink-800 hover:text-gray-200'
                 }}
             "
         >
