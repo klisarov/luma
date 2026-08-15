@@ -133,7 +133,7 @@
                         "
                     ></span>
 
-                    Account active
+                    Account active 
 
                 </span>
 
