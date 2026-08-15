@@ -24,7 +24,7 @@ class TestPushNotification extends Notification
     ): WebPushMessage {
         return (new WebPushMessage)
             ->title('Luma - Notification')
-            ->body('hey mace ;)')
+            ->body('majmunee ;)')
             ->icon('/icons/icon-192.png')
             ->badge('/icons/icon-192.png')
             ->data([
