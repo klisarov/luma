@@ -600,4 +600,29 @@ return [
 
     ],
 
+    /*
+|--------------------------------------------------------------------------
+| Work Log
+|--------------------------------------------------------------------------
+*/
+
+'work' => [
+
+    'title' =>
+        'Work log',
+
+    'description' =>
+        'Everything you\'ve flagged as work-related, most recent first.',
+
+    'done' =>
+        'Done',
+
+    'open' =>
+        'Open',
+
+    'empty' =>
+        'No work-related tasks logged yet.',
+
+],
+
 ];
