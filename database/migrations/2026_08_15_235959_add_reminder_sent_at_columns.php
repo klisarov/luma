@@ -9,21 +9,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->timestamp('reminder_sent_at')->nullable()->after('reminder_offset_minutes');
-        });
-
-        Schema::table('calendar_events', function (Blueprint $table) {
-            $table->timestamp('reminder_sent_at')->nullable()->after('notify_before_minutes');
+            $table->timestamp('reminder_sent_at')
+                ->nullable()
+                ->after('reminder_offset_minutes');
         });
     }
 
     public function down(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->dropColumn('reminder_sent_at');
-        });
-
-        Schema::table('calendar_events', function (Blueprint $table) {
             $table->dropColumn('reminder_sent_at');
         });
     }
