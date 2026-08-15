@@ -569,36 +569,80 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'fitness' => [
+'fitness' => [
 
-        'title' =>
-            'Fitness',
+    'title' =>
+        'Fitness',
 
-        'workout_plans' =>
-            'Workout plans',
+    'tracker' =>
+        'Fitness tracker',
 
-        'new_plan' =>
-            'New workout plan',
+    'workout_plans' =>
+        'Workout plans',
 
-        'exercise' =>
-            'Exercise',
+    'new_plan' =>
+        'New workout plan',
 
-        'exercises' =>
-            'Exercises',
+    'todays_tip' =>
+        'Today\'s tip',
 
-        'sets' =>
-            'Sets',
+    'profile_details_prompt' =>
+        'Set your profile details to get personalized fitness tips.',
 
-        'reps' =>
-            'Reps',
+    'update_profile' =>
+        'Update profile',
 
-        'weight' =>
-            'Weight',
+    'workout_type_placeholder' =>
+        'e.g. Push day',
 
-        'notes' =>
-            'Notes',
+    'duration_placeholder' =>
+        '60 min',
 
+    'rest' =>
+        'Rest',
+
+    'minutes_short' =>
+        'min',
+
+    'exercise' =>
+        'Exercise',
+
+    'exercises' =>
+        'Exercises',
+
+    'sets' =>
+        'Sets',
+
+    'reps' =>
+        'Reps',
+
+    'weight' =>
+        'Weight',
+
+    'notes' =>
+        'Notes',
+
+    'days' => [
+        0 => 'Sunday',
+        1 => 'Monday',
+        2 => 'Tuesday',
+        3 => 'Wednesday',
+        4 => 'Thursday',
+        5 => 'Friday',
+        6 => 'Saturday',
     ],
+
+    'days_short' => [
+        0 => 'Sun',
+        1 => 'Mon',
+        2 => 'Tue',
+        3 => 'Wed',
+        4 => 'Thu',
+        5 => 'Fri',
+        6 => 'Sat',
+    ],
+
+],
 
     /*
 |--------------------------------------------------------------------------
