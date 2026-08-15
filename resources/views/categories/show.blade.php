@@ -187,6 +187,389 @@
 
 
         {{-- ============================================================ --}}
+        {{-- ADD TASK --}}
+        {{-- ============================================================ --}}
+
+        <div class="rounded-xl2 border border-ink-700 bg-ink-800/60">
+
+            <div class="border-b border-ink-700 px-5 py-4">
+                <h2 class="font-display text-base font-semibold text-paper">
+                    Add task
+                </h2>
+
+                <p class="mt-1 text-xs text-muted">
+                    Add a new task to {{ $category->name }}.
+                </p>
+            </div>
+
+
+            <form
+                method="POST"
+                action="{{ route('tasks.store') }}"
+                class="grid gap-4 p-5 sm:grid-cols-2"
+            >
+                @csrf
+
+
+                {{-- Current category --}}
+                <input
+                    type="hidden"
+                    name="category_id"
+                    value="{{ $category->id }}"
+                >
+
+
+                {{-- Title --}}
+                <div class="sm:col-span-2">
+
+                    <label
+                        for="task-title"
+                        class="mb-1.5 block text-xs font-medium text-muted"
+                    >
+                        Title
+                    </label>
+
+                    <input
+                        id="task-title"
+                        type="text"
+                        name="title"
+                        value="{{ old('title') }}"
+                        placeholder="What needs to be done?"
+                        required
+                        class="
+                            w-full
+                            rounded-md
+                            border-ink-600
+                            bg-ink-800
+                            text-sm text-paper
+                            placeholder:text-muted/60
+                            focus:border-glow
+                            focus:ring-glow
+                        "
+                    >
+
+                    @error('title')
+                        <p class="mt-1 text-xs text-red-400">
+                            {{ $message }}
+                        </p>
+                    @enderror
+
+                </div>
+
+
+                {{-- Subcategory --}}
+                <div>
+
+                    <label
+                        for="task-subcategory"
+                        class="mb-1.5 block text-xs font-medium text-muted"
+                    >
+                        Subcategory
+                    </label>
+
+                    <select
+                        id="task-subcategory"
+                        name="subcategory_id"
+                        class="
+                            w-full
+                            rounded-md
+                            border-ink-600
+                            bg-ink-800
+                            text-sm text-paper
+                            focus:border-glow
+                            focus:ring-glow
+                        "
+                    >
+                        <option value="">
+                            No subcategory
+                        </option>
+
+                        @foreach ($category->subcategories as $subcategory)
+                            <option
+                                value="{{ $subcategory->id }}"
+                                @selected(old('subcategory_id') == $subcategory->id)
+                            >
+                                {{ $subcategory->name }}
+                            </option>
+                        @endforeach
+
+                    </select>
+
+                    @error('subcategory_id')
+                        <p class="mt-1 text-xs text-red-400">
+                            {{ $message }}
+                        </p>
+                    @enderror
+
+                </div>
+
+
+                {{-- Priority --}}
+                <div>
+
+                    <label
+                        for="task-priority"
+                        class="mb-1.5 block text-xs font-medium text-muted"
+                    >
+                        Priority
+                    </label>
+
+                    <select
+                        id="task-priority"
+                        name="priority"
+                        class="
+                            w-full
+                            rounded-md
+                            border-ink-600
+                            bg-ink-800
+                            text-sm text-paper
+                            focus:border-glow
+                            focus:ring-glow
+                        "
+                    >
+                        <option value="">
+                            No priority
+                        </option>
+
+                        <option
+                            value="low"
+                            @selected(old('priority') === 'low')
+                        >
+                            Low
+                        </option>
+
+                        <option
+                            value="medium"
+                            @selected(old('priority') === 'medium')
+                        >
+                            Medium
+                        </option>
+
+                        <option
+                            value="high"
+                            @selected(old('priority') === 'high')
+                        >
+                            High
+                        </option>
+                    </select>
+
+                    @error('priority')
+                        <p class="mt-1 text-xs text-red-400">
+                            {{ $message }}
+                        </p>
+                    @enderror
+
+                </div>
+
+
+                {{-- Due date --}}
+                <div>
+
+                    <label
+                        for="task-due-at"
+                        class="mb-1.5 block text-xs font-medium text-muted"
+                    >
+                        Due date
+                    </label>
+
+                    <input
+                        id="task-due-at"
+                        type="datetime-local"
+                        name="due_at"
+                        value="{{ old('due_at') }}"
+                        class="
+                            w-full
+                            rounded-md
+                            border-ink-600
+                            bg-ink-800
+                            text-sm text-paper
+                            focus:border-glow
+                            focus:ring-glow
+                        "
+                    >
+
+                    @error('due_at')
+                        <p class="mt-1 text-xs text-red-400">
+                            {{ $message }}
+                        </p>
+                    @enderror
+
+                </div>
+
+
+                {{-- Reminder --}}
+                <div>
+
+                    <label
+                        for="task-reminder"
+                        class="mb-1.5 block text-xs font-medium text-muted"
+                    >
+                        Reminder
+                    </label>
+
+                    <select
+                        id="task-reminder"
+                        name="reminder_offset_minutes"
+                        class="
+                            w-full
+                            rounded-md
+                            border-ink-600
+                            bg-ink-800
+                            text-sm text-paper
+                            focus:border-glow
+                            focus:ring-glow
+                        "
+                    >
+                        <option value="">
+                            No reminder
+                        </option>
+
+                        <option
+                            value="15"
+                            @selected(old('reminder_offset_minutes') == '15')
+                        >
+                            15 minutes before
+                        </option>
+
+                        <option
+                            value="30"
+                            @selected(old('reminder_offset_minutes') == '30')
+                        >
+                            30 minutes before
+                        </option>
+
+                        <option
+                            value="60"
+                            @selected(old('reminder_offset_minutes') == '60')
+                        >
+                            1 hour before
+                        </option>
+
+                        <option
+                            value="1440"
+                            @selected(old('reminder_offset_minutes') == '1440')
+                        >
+                            1 day before
+                        </option>
+                    </select>
+
+                    @error('reminder_offset_minutes')
+                        <p class="mt-1 text-xs text-red-400">
+                            {{ $message }}
+                        </p>
+                    @enderror
+
+                </div>
+
+
+                {{-- Description --}}
+                <div class="sm:col-span-2">
+
+                    <label
+                        for="task-description"
+                        class="mb-1.5 block text-xs font-medium text-muted"
+                    >
+                        Description
+                    </label>
+
+                    <textarea
+                        id="task-description"
+                        name="description"
+                        rows="3"
+                        placeholder="Optional notes..."
+                        class="
+                            w-full
+                            resize-y
+                            rounded-md
+                            border-ink-600
+                            bg-ink-800
+                            text-sm text-paper
+                            placeholder:text-muted/60
+                            focus:border-glow
+                            focus:ring-glow
+                        "
+                    >{{ old('description') }}</textarea>
+
+                    @error('description')
+                        <p class="mt-1 text-xs text-red-400">
+                            {{ $message }}
+                        </p>
+                    @enderror
+
+                </div>
+
+
+                {{-- Work related --}}
+                <div class="sm:col-span-2">
+
+                    <input
+                        type="hidden"
+                        name="is_work_related"
+                        value="0"
+                    >
+
+                    <label
+                        class="
+                            flex cursor-pointer
+                            items-center gap-3
+                            rounded-md
+                            border border-ink-600
+                            bg-ink-800
+                            px-3 py-2.5
+                            text-sm text-muted
+                        "
+                    >
+
+                        <input
+                            type="checkbox"
+                            name="is_work_related"
+                            value="1"
+                            @checked(old('is_work_related'))
+                            class="
+                                rounded
+                                border-ink-600
+                                bg-ink-900
+                                text-glow
+                                focus:ring-glow
+                            "
+                        >
+
+                        <span>
+                            Work related
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                {{-- Submit --}}
+                <div class="sm:col-span-2">
+
+                    <button
+                        type="submit"
+                        class="
+                            w-full
+                            rounded-md
+                            bg-glow
+                            px-4 py-2.5
+                            text-sm font-semibold
+                            text-ink-950
+                            transition
+                            hover:brightness-110
+                        "
+                    >
+                        Add task
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        {{-- ============================================================ --}}
         {{-- TASKS --}}
         {{-- ============================================================ --}}
 
@@ -209,9 +592,7 @@
 
                 @forelse ($category->tasks as $task)
 
-                    <div
-                        class="flex items-center gap-3 px-5 py-3.5"
-                    >
+                    <div class="flex items-center gap-3 px-5 py-3.5">
 
                         {{-- Completion indicator --}}
                         <span
