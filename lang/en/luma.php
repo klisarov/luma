@@ -530,11 +530,17 @@ return [
         'calendar_name' =>
             'Calendar name',
 
+        'add_calendar' =>
+            'Add calendar',
+
         'new_event' =>
             'New event',
 
         'event_title' =>
             'Event title',
+
+        'location_optional' =>
+            'Location (optional)',
 
         'start' =>
             'Start',
@@ -551,14 +557,60 @@ return [
         'reminder' =>
             'Reminder',
 
+        'no_reminder' =>
+            'No reminder',
+
+        'reminder_15' =>
+            '15 min before',
+
+        'reminder_30' =>
+            '30 min before',
+
+        'reminder_60' =>
+            '1 hour before',
+
+        'reminder_day' =>
+            '1 day before',
+
+        'reminder_minutes' =>
+            ':minutes min before',
+
+        'reminder_display' =>
+            'Reminder: :reminder',
+
         'add_event' =>
             'Add event',
 
         'delete_event' =>
             'Delete event',
 
+        'remove_event_confirm' =>
+            'Remove this event?',
+
         'no_events' =>
             'No events yet.',
+
+        'types' => [
+
+            'work' =>
+                'Work',
+
+            'study' =>
+                'Study',
+
+            'exhibition' =>
+                'Exhibition',
+
+            'lecture' =>
+                'Lecture / Lab',
+
+            'birthday' =>
+                'Birthday',
+
+            'custom' =>
+                'Custom',
+
+        ],
 
     ],
 
