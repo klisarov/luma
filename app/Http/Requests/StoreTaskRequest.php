@@ -34,7 +34,7 @@ class StoreTaskRequest extends FormRequest
             'due_at' => ['nullable', 'date'],
             'reminder_offset_minutes' => ['nullable', 'integer', 'min:0'],
             'is_work_related' => ['nullable', 'boolean'],
-            'priority' => ['nullable', 'integer', 'between:1,3'],
+            'priority' => ['nullable', 'string', 'in:low,medium,high'],
         ];
     }
 }
