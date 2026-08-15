@@ -47,25 +47,6 @@
                     "
                 >
 
-                    {{-- Avatar --}}
-                    <div
-                        class="
-                            flex h-16 w-16
-                            shrink-0
-                            items-center justify-center
-                            rounded-2xl
-                            border border-glow/20
-                            bg-glow/10
-                            font-display
-                            text-xl font-semibold
-                            text-glow
-                            shadow-[0_0_35px_-12px_rgba(245,185,66,0.45)]
-                        "
-                    >
-                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-                    </div>
-
-
                     <div class="min-w-0">
 
                         <p
