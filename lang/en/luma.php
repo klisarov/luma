@@ -8,44 +8,51 @@ return [
     |--------------------------------------------------------------------------
     */
 
-        'nav' => [
+    'nav' => [
 
-            'home' => 'Luma home',
+        'home' => 'Luma home',
 
-            'today' => 'Today',
+        'today' => 'Today',
 
-            'work_log' => 'Work log',
+        'work_log' => 'Work log',
 
-            'fitness' => 'Fitness',
+        'fitness' => 'Fitness',
 
-            'calendars' => 'Calendars',
+        'calendars' => 'Calendars',
 
-            'categories' => 'Categories',
+        'categories' => 'Categories',
 
-            'new_category' => 'New category',
+        'new_category' => 'New category',
 
-            'category_name' => 'Category name',
+        'category_name' => 'Category name',
 
-            'add_category' => 'Add category',
+        'add_category' => 'Add category',
 
-            'profile' => 'Profile',
+        'profile' => 'Profile',
 
-            'logout' => 'Log out',
+        'logout' => 'Log out',
 
-            'open_navigation' => 'Open navigation',
+        'open_navigation' => 'Open navigation',
 
-            'close_navigation' => 'Close navigation',
+        'close_navigation' => 'Close navigation',
 
-            'delete_category' => 'Delete category',
+        'delete_category' => 'Delete category',
 
-            'delete_category_aria' => 'Delete :category',
+        'delete_category_aria' => 'Delete :category',
 
-            'delete_category_confirm' =>
-                'Delete :category? Tasks will be kept, but removed from this category.',
+        'delete_category_confirm' =>
+            'Delete :category? Tasks will be kept, but removed from this category.',
 
-        ],
+    ],
 
-        'notifications' => [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Notifications
+    |--------------------------------------------------------------------------
+    */
+
+    'notifications' => [
 
         'task_reminder_title' =>
             'Task reminder',
@@ -80,10 +87,15 @@ return [
     'common' => [
 
         'add' => 'Add',
+
         'save' => 'Save',
+
         'remove' => 'Remove',
+
         'delete' => 'Delete',
+
         'cancel' => 'Cancel',
+
         'edit' => 'Edit',
 
         'work' => 'Work',
@@ -93,15 +105,21 @@ return [
         'no_deadline' => 'No deadline',
 
         'low' => 'Low',
+
         'medium' => 'Medium',
+
         'high' => 'High',
 
         'name' => 'Name',
+
         'email' => 'Email',
+
         'password' => 'Password',
 
         'location' => 'Location',
+
         'description' => 'Description',
+
         'notes' => 'Notes',
 
     ],
@@ -114,12 +132,25 @@ return [
     */
 
     'dashboard' => [
-        'title' => 'Today',
-        'todays_plan' => "Today's plan",
 
-        'completion' => ":percentage% of today's tasks are done.",
+        'title' =>
+            'Today',
 
-        'todays_obligations' => "Today's obligations",
+        'todays_plan' =>
+            'Today\'s plan',
+
+        'completion' =>
+            ':percentage% of today\'s tasks are done.',
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Tasks
+        |--------------------------------------------------------------------------
+        */
+
+        'todays_obligations' =>
+            'Today\'s obligations',
 
         'nothing_today' =>
             'Nothing on the books for today.',
@@ -131,7 +162,23 @@ return [
             'Upcoming, overdue and unscheduled tasks',
 
         'all_caught_up' =>
-            "You're all caught up.",
+            'You\'re all caught up.',
+
+        'task_count' =>
+            '{1} :count task|[2,*] :count tasks',
+
+        'task_singular' =>
+            'task',
+
+        'task_plural' =>
+            'tasks',
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Calendars
+        |--------------------------------------------------------------------------
+        */
 
         'calendars' =>
             'Calendars',
@@ -142,12 +189,17 @@ return [
         'delete_calendar' =>
             'Delete calendar',
 
+        'delete_calendar_aria' =>
+            'Delete :name',
+
         'delete_calendar_confirm' =>
             'Delete :name and all events inside it?',
 
 
         /*
-        | Device setup
+        |--------------------------------------------------------------------------
+        | Device Setup
+        |--------------------------------------------------------------------------
         */
 
         'add_to_iphone' =>
@@ -174,8 +226,24 @@ return [
         'allow_notifications' =>
             'Allow notifications',
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Notification States
+        |--------------------------------------------------------------------------
+        */
+
         'notifications_blocked' =>
             'Notifications are blocked',
+
+        'notifications_blocked_iphone' =>
+            'Notifications are blocked. Open your iPhone settings and allow notifications for Luma.',
+
+        'notifications_blocked_browser' =>
+            'Notifications are blocked in your browser settings.',
+
+        'notifications_blocked_device' =>
+            'Notifications are blocked in your device settings.',
 
         'notifications_enabled' =>
             'Notifications are enabled.',
@@ -185,6 +253,41 @@ return [
 
         'connecting_notifications' =>
             'Connecting Luma notifications...',
+
+        'enabled' =>
+            'Enabled ✓',
+
+        'unable_to_enable_notifications' =>
+            'Unable to enable notifications.',
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Push / Browser Errors
+        |--------------------------------------------------------------------------
+        */
+
+        'service_workers_unsupported' =>
+            'Service workers are not supported in this browser.',
+
+        'push_keys_missing' =>
+            'The browser did not return push encryption keys.',
+
+        'notifications_unsupported' =>
+            'Notifications are not supported in this browser.',
+
+        'web_push_unsupported' =>
+            'Web Push is not supported in this browser.',
+
+        'vapid_missing' =>
+            'VAPID public key is missing.',
+
+        'notification_permission_not_granted' =>
+            'Notification permission was not granted.',
+
+        'unable_save_push_subscription' =>
+            'Unable to save push subscription: :error',
+
     ],
 
 
@@ -196,7 +299,8 @@ return [
 
     'categories' => [
 
-        'subcategories' => 'Subcategories',
+        'subcategories' =>
+            'Subcategories',
 
         'organize_tasks' =>
             'Organize tasks inside :category.',
@@ -280,6 +384,7 @@ return [
     */
 
     'profile' => [
+
         'title' =>
             'Profile',
 
@@ -324,6 +429,7 @@ return [
 
         'timezone' =>
             'Timezone',
+
     ],
 
 
@@ -334,6 +440,7 @@ return [
     */
 
     'login' => [
+
         'title' =>
             'Welcome back',
 
@@ -402,29 +509,57 @@ return [
 
         'motto' =>
             'Your day, in orbit.',
+
     ],
 
 
     /*
     |--------------------------------------------------------------------------
-    | Calendars
+    | Calendar
     |--------------------------------------------------------------------------
     */
 
     'calendar' => [
-        'title' => 'Calendars',
-        'new_calendar' => 'New calendar',
-        'calendar_name' => 'Calendar name',
-        'new_event' => 'New event',
-        'event_title' => 'Event title',
-        'start' => 'Start',
-        'end' => 'End',
-        'all_day' => 'All day',
-        'yearly' => 'Repeat yearly',
-        'reminder' => 'Reminder',
-        'add_event' => 'Add event',
-        'delete_event' => 'Delete event',
-        'no_events' => 'No events yet.',
+
+        'title' =>
+            'Calendars',
+
+        'new_calendar' =>
+            'New calendar',
+
+        'calendar_name' =>
+            'Calendar name',
+
+        'new_event' =>
+            'New event',
+
+        'event_title' =>
+            'Event title',
+
+        'start' =>
+            'Start',
+
+        'end' =>
+            'End',
+
+        'all_day' =>
+            'All day',
+
+        'yearly' =>
+            'Repeat yearly',
+
+        'reminder' =>
+            'Reminder',
+
+        'add_event' =>
+            'Add event',
+
+        'delete_event' =>
+            'Delete event',
+
+        'no_events' =>
+            'No events yet.',
+
     ],
 
 
@@ -435,15 +570,34 @@ return [
     */
 
     'fitness' => [
-        'title' => 'Fitness',
-        'workout_plans' => 'Workout plans',
-        'new_plan' => 'New workout plan',
-        'exercise' => 'Exercise',
-        'exercises' => 'Exercises',
-        'sets' => 'Sets',
-        'reps' => 'Reps',
-        'weight' => 'Weight',
-        'notes' => 'Notes',
+
+        'title' =>
+            'Fitness',
+
+        'workout_plans' =>
+            'Workout plans',
+
+        'new_plan' =>
+            'New workout plan',
+
+        'exercise' =>
+            'Exercise',
+
+        'exercises' =>
+            'Exercises',
+
+        'sets' =>
+            'Sets',
+
+        'reps' =>
+            'Reps',
+
+        'weight' =>
+            'Weight',
+
+        'notes' =>
+            'Notes',
+
     ],
 
 ];
