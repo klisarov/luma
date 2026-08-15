@@ -2,12 +2,12 @@
     class="
         inline-flex
         items-center
-        gap-0.5
         rounded-lg
-        bg-ink-800/80
-        p-0.5
+        border
+        border-ink-700
+        bg-ink-900
+        p-1
     "
-    aria-label="Language"
 >
 
     {{-- English --}}
@@ -20,25 +20,23 @@
 
         <button
             type="submit"
-            title="English"
             aria-label="English"
+            title="English"
             class="
                 flex
-                h-7
-                min-w-9
+                h-8
+                min-w-10
                 items-center
                 justify-center
                 rounded-md
-                px-2
-                text-[11px]
+                px-2.5
+                text-xs
                 font-semibold
-                tracking-wide
-                transition-all
-                duration-200
+                transition
 
                 {{ app()->isLocale('en')
-                    ? 'bg-paper text-ink-950 shadow-sm'
-                    : 'text-muted hover:bg-ink-700 hover:text-paper'
+                    ? 'bg-glow text-ink-950'
+                    : 'text-muted hover:bg-ink-800 hover:text-paper'
                 }}
             "
         >
@@ -57,25 +55,23 @@
 
         <button
             type="submit"
-            title="Македонски"
             aria-label="Македонски"
+            title="Македонски"
             class="
                 flex
-                h-7
-                min-w-9
+                h-8
+                min-w-10
                 items-center
                 justify-center
                 rounded-md
-                px-2
-                text-[11px]
+                px-2.5
+                text-xs
                 font-semibold
-                tracking-wide
-                transition-all
-                duration-200
+                transition
 
                 {{ app()->isLocale('mk')
-                    ? 'bg-paper text-ink-950 shadow-sm'
-                    : 'text-muted hover:bg-ink-700 hover:text-paper'
+                    ? 'bg-glow text-ink-950'
+                    : 'text-muted hover:bg-ink-800 hover:text-paper'
                 }}
             "
         >
