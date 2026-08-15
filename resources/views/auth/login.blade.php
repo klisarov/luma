@@ -58,6 +58,9 @@
 
     <div class="absolute right-5 top-5 z-20">
         <x-locale-switcher />
+        <span class="text-white">
+    {{ app()->getLocale() }}
+</span>
     </div>
 
     <main class="relative min-h-screen overflow-hidden">
@@ -171,7 +174,7 @@
                             xl:text-7xl
                         "
                     >
-                        Your day,
+                        {{ __('luma.login.your_day') }}
 
                         <span
                             class="
@@ -183,7 +186,7 @@
                                 text-transparent
                             "
                         >
-                            in orbit.
+                            {{ __('luma.login.in_orbit') }}
                         </span>
                     </h1>
 
@@ -198,9 +201,7 @@
                             sm:text-lg
                         "
                     >
-                        Plan what matters. Stay focused. Move forward.
-                        Luma brings your tasks, calendars, work, fitness
-                        and reminders into one calm daily system.
+                        {{ __('luma.login.intro') }}
                     </p>
 
 
@@ -262,11 +263,11 @@
 
                                 <div>
                                     <p class="text-sm font-semibold text-paper">
-                                        Focused days
+                                        {{ __('luma.login.focused_days') }}
                                     </p>
 
                                     <p class="mt-1 text-xs leading-5 text-muted">
-                                        See what matters today and track your progress.
+                                        {{ __('luma.login.focused_days_description') }}
                                     </p>
                                 </div>
 
@@ -327,11 +328,11 @@
 
                                 <div>
                                     <p class="text-sm font-semibold text-paper">
-                                        Life in one calendar
+                                        {{ __('luma.login.one_calendar') }}
                                     </p>
 
                                     <p class="mt-1 text-xs leading-5 text-muted">
-                                        Keep work, study and personal events together.
+                                        {{ __('luma.login.one_calendar_description') }}
                                     </p>
                                 </div>
 
@@ -385,11 +386,11 @@
 
                                 <div>
                                     <p class="text-sm font-semibold text-paper">
-                                        Stay consistent
+                                        {{ __('luma.login.stay_consistent') }}
                                     </p>
 
                                     <p class="mt-1 text-xs leading-5 text-muted">
-                                        Keep your weekly workouts beside the rest of life.
+                                        {{ __('luma.login.stay_consistent_description') }}
                                     </p>
                                 </div>
 
@@ -443,11 +444,11 @@
 
                                 <div>
                                     <p class="text-sm font-semibold text-paper">
-                                        Never lose track
+                                        {{ __('luma.login.never_lose_track') }}
                                     </p>
 
                                     <p class="mt-1 text-xs leading-5 text-muted">
-                                        Smart reminders keep obligations from slipping away.
+                                        {{ __('luma.login.never_lose_track_description') }}
                                     </p>
                                 </div>
 
@@ -636,12 +637,12 @@
                                     sm:text-3xl
                                 "
                             >
-                                Welcome back.
+                                {{ __('luma.login.welcome_back') }}
                             </h2>
 
 
                             <p class="mt-2 text-sm leading-6 text-muted">
-                                Your day is waiting. Pick up exactly where you left off.
+                                {{ __('luma.login.welcome_description') }}
                             </p>
 
                         </div>
@@ -969,7 +970,7 @@
                                     >
 
                                     <span>
-                                        Keep me signed in
+                                        {{ __('luma.login.keep_signed_in') }}
                                     </span>
 
                                 </label>
@@ -1004,7 +1005,7 @@
                             >
 
                                 <span class="relative z-10">
-                                    Enter Luma
+                                    {{ __('luma.login.enter_luma') }}
                                 </span>
 
 
@@ -1062,8 +1063,7 @@
                             "
                         >
                             <p class="text-xs leading-5 text-muted/60">
-                                Your plans stay yours.
-                                Luma keeps your personal system focused and private.
+                                {{ __('luma.login.privacy') }}
                             </p>
                         </div>
 
@@ -1080,7 +1080,7 @@
                             lg:hidden
                         "
                     >
-                        © {{ date('Y') }} Luma · Your day, in orbit.
+                        © {{ date('Y') }} Luma · {{ __('luma.login.motto') }}
                     </p>
 
                 </div>

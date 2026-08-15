@@ -16,10 +16,7 @@ class LocaleController extends Controller
             404
         );
 
-        $request->session()->put(
-            'locale',
-            $locale
-        );
+        $request->session()->put('locale', $locale);
 
         if ($request->user()) {
             $request->user()->update([
