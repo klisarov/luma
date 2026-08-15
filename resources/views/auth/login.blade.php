@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}" class="h-full">
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1"
+    >
 
-    <title>Welcome back — Luma</title>
+    <meta
+        name="csrf-token"
+        content="{{ csrf_token() }}"
+    >
+
+    <title>{{ __('luma.login.title') }} — Luma</title>
+
 
     {{-- Browser / PWA branding --}}
     <link
@@ -39,13 +48,22 @@
         href="{{ asset('site.webmanifest') }}"
     >
 
-    <meta name="theme-color" content="#0B0F1A">
-    <meta name="apple-mobile-web-app-title" content="Luma">
+    <meta
+        name="theme-color"
+        content="#0B0F1A"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="Luma"
+    >
+
 
     @vite([
         'resources/css/app.css',
         'resources/js/app.js'
     ])
+
 
     <style>
         [x-cloak] {
@@ -54,48 +72,115 @@
     </style>
 </head>
 
-<body class="min-h-full bg-ink-950 text-paper antialiased">
 
-    <div class="absolute right-5 top-5 z-20">
-        <x-locale-switcher />
-        <span class="text-white">
-    {{ app()->getLocale() }}
-</span>
-    </div>
+<body
+    class="
+        min-h-full
+        bg-ink-950
+        text-paper
+        antialiased
+    "
+>
 
-    <main class="relative min-h-screen overflow-hidden">
+    <main
+        class="
+            relative
+            min-h-screen
+            overflow-hidden
+        "
+    >
 
         {{-- ============================================================ --}}
         {{-- BACKGROUND --}}
         {{-- ============================================================ --}}
 
-        <div class="pointer-events-none absolute inset-0 overflow-hidden">
+        <div
+            class="
+                pointer-events-none
+                absolute inset-0
+                overflow-hidden
+            "
+        >
 
             {{-- Main golden glow --}}
             <div
-                class="absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full opacity-20 blur-[120px]"
+                class="
+                    absolute
+                    -left-40
+                    -top-40
+                    h-[500px]
+                    w-[500px]
+                    rounded-full
+                    opacity-20
+                    blur-[120px]
+                "
                 style="background: #F5B942;"
             ></div>
+
 
             {{-- Bottom-right golden glow --}}
             <div
-                class="absolute -bottom-56 right-[-150px] h-[550px] w-[550px] rounded-full opacity-[0.08] blur-[140px]"
+                class="
+                    absolute
+                    -bottom-56
+                    right-[-150px]
+                    h-[550px]
+                    w-[550px]
+                    rounded-full
+                    opacity-[0.08]
+                    blur-[140px]
+                "
                 style="background: #F5B942;"
             ></div>
 
+
             {{-- White atmospheric glow --}}
             <div
-                class="absolute right-[12%] top-[8%] h-40 w-40 rounded-full opacity-[0.05] blur-[70px]"
+                class="
+                    absolute
+                    right-[12%]
+                    top-[8%]
+                    h-40
+                    w-40
+                    rounded-full
+                    opacity-[0.05]
+                    blur-[70px]
+                "
                 style="background: #ffffff;"
             ></div>
 
+
             {{-- Decorative orbital rings --}}
             <div
-                class="absolute left-[8%] top-[26%] hidden h-[420px] w-[420px] rotate-[-18deg] rounded-full border border-glow/10 xl:block"
+                class="
+                    absolute
+                    left-[8%]
+                    top-[26%]
+                    hidden
+                    h-[420px]
+                    w-[420px]
+                    rotate-[-18deg]
+                    rounded-full
+                    border
+                    border-glow/10
+                    xl:block
+                "
             ></div>
 
             <div
-                class="absolute left-[12%] top-[30%] hidden h-[310px] w-[310px] rotate-[22deg] rounded-full border border-glow/[0.07] xl:block"
+                class="
+                    absolute
+                    left-[12%]
+                    top-[30%]
+                    hidden
+                    h-[310px]
+                    w-[310px]
+                    rotate-[22deg]
+                    rounded-full
+                    border
+                    border-glow/[0.07]
+                    xl:block
+                "
             ></div>
 
         </div>
@@ -107,9 +192,11 @@
 
         <div
             class="
-                relative z-10
+                relative
+                z-10
                 mx-auto
-                grid min-h-screen
+                grid
+                min-h-screen
                 max-w-[1600px]
                 lg:grid-cols-[1.15fr_0.85fr]
             "
@@ -122,9 +209,13 @@
             <section
                 class="
                     relative
-                    flex flex-col
-                    px-6 pb-10 pt-7
+                    flex
+                    flex-col
+                    px-4
+                    pb-10
+                    pt-5
                     sm:px-10
+                    sm:pt-7
                     lg:min-h-screen
                     lg:px-14
                     lg:pb-14
@@ -133,28 +224,64 @@
                 "
             >
 
-                {{-- Luma logo --}}
-                <div>
+                {{-- ==================================================== --}}
+                {{-- TOP BAR --}}
+                {{-- ==================================================== --}}
+
+                <div
+                    class="
+                        flex
+                        items-center
+                        justify-between
+                        gap-3
+                    "
+                >
+
+                    {{-- Luma logo --}}
                     <a
                         href="{{ url('/') }}"
-                        class="inline-flex items-center"
+                        class="
+                            inline-flex
+                            min-w-0
+                            items-center
+                        "
                         aria-label="Luma"
                     >
                         <img
                             src="{{ asset('images/luma-logo.png') }}"
                             alt="Luma"
-                            class="h-11 w-auto max-w-[180px] object-contain sm:h-12"
+                            class="
+                                h-10
+                                w-auto
+                                max-w-[145px]
+                                object-contain
+                                sm:h-12
+                                sm:max-w-[180px]
+                            "
                         >
                     </a>
+
+
+                    {{-- Locale switcher --}}
+                    <div class="shrink-0">
+                        <x-locale-switcher />
+                    </div>
+
                 </div>
 
 
-                {{-- Hero --}}
+                {{-- ==================================================== --}}
+                {{-- HERO --}}
+                {{-- ==================================================== --}}
+
                 <div
                     class="
-                        flex flex-1
-                        flex-col justify-center
-                        py-14
+                        flex
+                        flex-1
+                        flex-col
+                        justify-center
+                        py-12
+                        sm:py-14
                         lg:max-w-2xl
                         lg:py-20
                     "
@@ -165,7 +292,8 @@
                         class="
                             max-w-3xl
                             font-display
-                            text-4xl font-semibold
+                            text-4xl
+                            font-semibold
                             leading-[1.05]
                             tracking-[-0.035em]
                             text-paper
@@ -196,7 +324,8 @@
                         class="
                             mt-6
                             max-w-xl
-                            text-base leading-7
+                            text-base
+                            leading-7
                             text-muted
                             sm:text-lg
                         "
@@ -212,7 +341,8 @@
                     <div
                         class="
                             mt-10
-                            grid max-w-2xl
+                            grid
+                            max-w-2xl
                             gap-3
                             sm:grid-cols-2
                         "
@@ -223,7 +353,8 @@
                             class="
                                 group
                                 rounded-2xl
-                                border border-ink-700
+                                border
+                                border-ink-700
                                 bg-ink-900/50
                                 p-4
                                 backdrop-blur
@@ -237,11 +368,15 @@
 
                                 <div
                                     class="
-                                        flex h-9 w-9
+                                        flex
+                                        h-9
+                                        w-9
                                         shrink-0
-                                        items-center justify-center
+                                        items-center
+                                        justify-center
                                         rounded-xl
-                                        border border-glow/20
+                                        border
+                                        border-glow/20
                                         bg-glow/[0.08]
                                         text-glow
                                     "
@@ -261,14 +396,30 @@
                                     </svg>
                                 </div>
 
+
                                 <div>
-                                    <p class="text-sm font-semibold text-paper">
+
+                                    <p
+                                        class="
+                                            text-sm
+                                            font-semibold
+                                            text-paper
+                                        "
+                                    >
                                         {{ __('luma.login.focused_days') }}
                                     </p>
 
-                                    <p class="mt-1 text-xs leading-5 text-muted">
+                                    <p
+                                        class="
+                                            mt-1
+                                            text-xs
+                                            leading-5
+                                            text-muted
+                                        "
+                                    >
                                         {{ __('luma.login.focused_days_description') }}
                                     </p>
+
                                 </div>
 
                             </div>
@@ -281,7 +432,8 @@
                             class="
                                 group
                                 rounded-2xl
-                                border border-ink-700
+                                border
+                                border-ink-700
                                 bg-ink-900/50
                                 p-4
                                 backdrop-blur
@@ -295,11 +447,15 @@
 
                                 <div
                                     class="
-                                        flex h-9 w-9
+                                        flex
+                                        h-9
+                                        w-9
                                         shrink-0
-                                        items-center justify-center
+                                        items-center
+                                        justify-center
                                         rounded-xl
-                                        border border-glow/20
+                                        border
+                                        border-glow/20
                                         bg-glow/[0.08]
                                         text-glow
                                     "
@@ -326,14 +482,30 @@
                                     </svg>
                                 </div>
 
+
                                 <div>
-                                    <p class="text-sm font-semibold text-paper">
+
+                                    <p
+                                        class="
+                                            text-sm
+                                            font-semibold
+                                            text-paper
+                                        "
+                                    >
                                         {{ __('luma.login.one_calendar') }}
                                     </p>
 
-                                    <p class="mt-1 text-xs leading-5 text-muted">
+                                    <p
+                                        class="
+                                            mt-1
+                                            text-xs
+                                            leading-5
+                                            text-muted
+                                        "
+                                    >
                                         {{ __('luma.login.one_calendar_description') }}
                                     </p>
+
                                 </div>
 
                             </div>
@@ -346,7 +518,8 @@
                             class="
                                 group
                                 rounded-2xl
-                                border border-ink-700
+                                border
+                                border-ink-700
                                 bg-ink-900/50
                                 p-4
                                 backdrop-blur
@@ -360,11 +533,15 @@
 
                                 <div
                                     class="
-                                        flex h-9 w-9
+                                        flex
+                                        h-9
+                                        w-9
                                         shrink-0
-                                        items-center justify-center
+                                        items-center
+                                        justify-center
                                         rounded-xl
-                                        border border-glow/20
+                                        border
+                                        border-glow/20
                                         bg-glow/[0.08]
                                         text-glow
                                     "
@@ -384,14 +561,30 @@
                                     </svg>
                                 </div>
 
+
                                 <div>
-                                    <p class="text-sm font-semibold text-paper">
+
+                                    <p
+                                        class="
+                                            text-sm
+                                            font-semibold
+                                            text-paper
+                                        "
+                                    >
                                         {{ __('luma.login.stay_consistent') }}
                                     </p>
 
-                                    <p class="mt-1 text-xs leading-5 text-muted">
+                                    <p
+                                        class="
+                                            mt-1
+                                            text-xs
+                                            leading-5
+                                            text-muted
+                                        "
+                                    >
                                         {{ __('luma.login.stay_consistent_description') }}
                                     </p>
+
                                 </div>
 
                             </div>
@@ -404,7 +597,8 @@
                             class="
                                 group
                                 rounded-2xl
-                                border border-ink-700
+                                border
+                                border-ink-700
                                 bg-ink-900/50
                                 p-4
                                 backdrop-blur
@@ -418,11 +612,15 @@
 
                                 <div
                                     class="
-                                        flex h-9 w-9
+                                        flex
+                                        h-9
+                                        w-9
                                         shrink-0
-                                        items-center justify-center
+                                        items-center
+                                        justify-center
                                         rounded-xl
-                                        border border-glow/20
+                                        border
+                                        border-glow/20
                                         bg-glow/[0.08]
                                         text-glow
                                     "
@@ -442,14 +640,30 @@
                                     </svg>
                                 </div>
 
+
                                 <div>
-                                    <p class="text-sm font-semibold text-paper">
+
+                                    <p
+                                        class="
+                                            text-sm
+                                            font-semibold
+                                            text-paper
+                                        "
+                                    >
                                         {{ __('luma.login.never_lose_track') }}
                                     </p>
 
-                                    <p class="mt-1 text-xs leading-5 text-muted">
+                                    <p
+                                        class="
+                                            mt-1
+                                            text-xs
+                                            leading-5
+                                            text-muted
+                                        "
+                                    >
                                         {{ __('luma.login.never_lose_track_description') }}
                                     </p>
+
                                 </div>
 
                             </div>
@@ -463,14 +677,17 @@
                     <div
                         class="
                             mt-10
-                            flex items-center gap-3
-                            text-sm text-muted
+                            flex
+                            items-center
+                            gap-3
+                            text-sm
+                            text-muted
                         "
                     >
                         <div class="h-px w-8 bg-glow/40"></div>
 
                         <span>
-                            One place. Less noise. More momentum.
+                            {{ __('luma.login.one_place') }}
                         </span>
                     </div>
 
@@ -481,20 +698,25 @@
                 <div
                     class="
                         hidden
-                        items-center justify-between
-                        border-t border-ink-800
+                        items-center
+                        justify-between
+                        border-t
+                        border-ink-800
                         pt-5
-                        text-xs text-muted/60
+                        text-xs
+                        text-muted/60
                         lg:flex
                     "
                 >
+
                     <span>
                         © {{ date('Y') }} Luma
                     </span>
 
                     <span>
-                        Built for intentional days.
+                        {{ __('luma.login.intentional_days') }}
                     </span>
+
                 </div>
 
             </section>
@@ -507,11 +729,16 @@
             <section
                 class="
                     relative
-                    flex items-center justify-center
-                    border-t border-ink-800
+                    flex
+                    items-center
+                    justify-center
+                    border-t
+                    border-ink-800
                     bg-ink-900/30
-                    px-5 py-12
+                    px-4
+                    py-10
                     sm:px-8
+                    sm:py-12
                     lg:min-h-screen
                     lg:border-l
                     lg:border-t-0
@@ -524,7 +751,8 @@
                 <div
                     class="
                         pointer-events-none
-                        absolute inset-0
+                        absolute
+                        inset-0
                         bg-gradient-to-br
                         from-white/[0.025]
                         via-transparent
@@ -543,13 +771,15 @@
                         class="
                             relative
                             overflow-hidden
-                            rounded-[28px]
-                            border border-ink-700
+                            rounded-[24px]
+                            border
+                            border-ink-700
                             bg-ink-900/80
-                            p-6
+                            p-5
                             shadow-2xl
                             shadow-black/30
                             backdrop-blur-xl
+                            sm:rounded-[28px]
                             sm:p-8
                         "
                     >
@@ -558,7 +788,10 @@
                         <div
                             class="
                                 pointer-events-none
-                                absolute left-10 right-10 top-0
+                                absolute
+                                left-10
+                                right-10
+                                top-0
                                 h-px
                                 bg-gradient-to-r
                                 from-transparent
@@ -572,8 +805,11 @@
                         <div
                             class="
                                 pointer-events-none
-                                absolute -right-20 -top-20
-                                h-44 w-44
+                                absolute
+                                -right-20
+                                -top-20
+                                h-44
+                                w-44
                                 rounded-full
                                 bg-glow/[0.08]
                                 blur-3xl
@@ -603,7 +839,8 @@
                                     <div
                                         class="
                                             pointer-events-none
-                                            absolute -inset-2
+                                            absolute
+                                            -inset-2
                                             rounded-[22px]
                                             bg-glow/10
                                             blur-xl
@@ -615,9 +852,11 @@
                                         alt="Luma"
                                         class="
                                             relative
-                                            h-14 w-14
+                                            h-14
+                                            w-14
                                             rounded-2xl
-                                            border border-glow/20
+                                            border
+                                            border-glow/20
                                             object-cover
                                             shadow-xl
                                         "
@@ -631,7 +870,8 @@
                             <h2
                                 class="
                                     font-display
-                                    text-2xl font-semibold
+                                    text-2xl
+                                    font-semibold
                                     tracking-tight
                                     text-paper
                                     sm:text-3xl
@@ -641,7 +881,14 @@
                             </h2>
 
 
-                            <p class="mt-2 text-sm leading-6 text-muted">
+                            <p
+                                class="
+                                    mt-2
+                                    text-sm
+                                    leading-6
+                                    text-muted
+                                "
+                            >
                                 {{ __('luma.login.welcome_description') }}
                             </p>
 
@@ -658,10 +905,13 @@
                                 class="
                                     mt-6
                                     rounded-xl
-                                    border border-sage/20
+                                    border
+                                    border-sage/20
                                     bg-sage/10
-                                    px-4 py-3
-                                    text-sm text-sage
+                                    px-4
+                                    py-3
+                                    text-sm
+                                    text-sage
                                 "
                             >
                                 {{ session('status') }}
@@ -680,6 +930,7 @@
                             class="mt-8"
                             x-data="{ showPassword: false }"
                         >
+
                             @csrf
 
 
@@ -691,13 +942,14 @@
                                     class="
                                         mb-2
                                         block
-                                        text-xs font-semibold
+                                        text-xs
+                                        font-semibold
                                         uppercase
                                         tracking-[0.14em]
                                         text-muted
                                     "
                                 >
-                                    Email
+                                    {{ __('luma.common.email') }}
                                 </label>
 
 
@@ -706,12 +958,16 @@
                                     <div
                                         class="
                                             pointer-events-none
-                                            absolute inset-y-0 left-0
-                                            flex items-center
+                                            absolute
+                                            inset-y-0
+                                            left-0
+                                            flex
+                                            items-center
                                             pl-4
                                             text-muted
                                         "
                                     >
+
                                         <svg
                                             class="h-4 w-4"
                                             viewBox="0 0 24 24"
@@ -733,6 +989,7 @@
                                                 d="M3 7l9 6 9-6"
                                             />
                                         </svg>
+
                                     </div>
 
 
@@ -746,12 +1003,15 @@
                                         autocomplete="username"
                                         placeholder="you@example.com"
                                         class="
-                                            block w-full
+                                            block
+                                            w-full
                                             rounded-xl
-                                            border border-ink-600
+                                            border
+                                            border-ink-600
                                             bg-ink-950/70
                                             py-3.5
-                                            pl-11 pr-4
+                                            pl-11
+                                            pr-4
                                             text-sm
                                             text-paper
                                             outline-none
@@ -768,7 +1028,13 @@
 
                                 @error('email')
 
-                                    <p class="mt-2 text-xs text-red-400">
+                                    <p
+                                        class="
+                                            mt-2
+                                            text-xs
+                                            text-red-400
+                                        "
+                                    >
                                         {{ $message }}
                                     </p>
 
@@ -780,27 +1046,20 @@
                             {{-- Password --}}
                             <div class="mt-5">
 
-                                <div class="mb-2 flex items-center justify-between">
-
-                                    <label
-                                        for="password"
-                                        class="
-                                            block
-                                            text-xs font-semibold
-                                            uppercase
-                                            tracking-[0.14em]
-                                            text-muted
-                                        "
-                                    >
-                                        Password
-                                    </label>
-
-
-                                    @if (Route::has('password.request'))
-
-                                    @endif
-
-                                </div>
+                                <label
+                                    for="password"
+                                    class="
+                                        mb-2
+                                        block
+                                        text-xs
+                                        font-semibold
+                                        uppercase
+                                        tracking-[0.14em]
+                                        text-muted
+                                    "
+                                >
+                                    {{ __('luma.common.password') }}
+                                </label>
 
 
                                 <div class="relative">
@@ -808,12 +1067,16 @@
                                     <div
                                         class="
                                             pointer-events-none
-                                            absolute inset-y-0 left-0
-                                            flex items-center
+                                            absolute
+                                            inset-y-0
+                                            left-0
+                                            flex
+                                            items-center
                                             pl-4
                                             text-muted
                                         "
                                     >
+
                                         <svg
                                             class="h-4 w-4"
                                             viewBox="0 0 24 24"
@@ -835,6 +1098,7 @@
                                                 d="M8 10V7a4 4 0 018 0v3"
                                             />
                                         </svg>
+
                                     </div>
 
 
@@ -844,14 +1108,17 @@
                                         name="password"
                                         required
                                         autocomplete="current-password"
-                                        placeholder="Enter your password"
+                                        placeholder="{{ __('luma.login.enter_password') }}"
                                         class="
-                                            block w-full
+                                            block
+                                            w-full
                                             rounded-xl
-                                            border border-ink-600
+                                            border
+                                            border-ink-600
                                             bg-ink-950/70
                                             py-3.5
-                                            pl-11 pr-12
+                                            pl-11
+                                            pr-12
                                             text-sm
                                             text-paper
                                             outline-none
@@ -869,14 +1136,17 @@
                                         type="button"
                                         @click="showPassword = !showPassword"
                                         class="
-                                            absolute inset-y-0 right-0
-                                            flex items-center
+                                            absolute
+                                            inset-y-0
+                                            right-0
+                                            flex
+                                            items-center
                                             px-4
                                             text-muted
                                             transition
                                             hover:text-paper
                                         "
-                                        aria-label="Toggle password visibility"
+                                        aria-label="{{ __('luma.login.show_password') }}"
                                     >
 
                                         {{-- Eye --}}
@@ -932,7 +1202,13 @@
 
                                 @error('password')
 
-                                    <p class="mt-2 text-xs text-red-400">
+                                    <p
+                                        class="
+                                            mt-2
+                                            text-xs
+                                            text-red-400
+                                        "
+                                    >
                                         {{ $message }}
                                     </p>
 
@@ -949,8 +1225,10 @@
                                     class="
                                         inline-flex
                                         cursor-pointer
-                                        items-center gap-2.5
-                                        text-sm text-muted
+                                        items-center
+                                        gap-2.5
+                                        text-sm
+                                        text-muted
                                     "
                                 >
 
@@ -959,7 +1237,8 @@
                                         type="checkbox"
                                         name="remember"
                                         class="
-                                            h-4 w-4
+                                            h-4
+                                            w-4
                                             rounded
                                             border-ink-600
                                             bg-ink-950
@@ -985,13 +1264,17 @@
                                     group
                                     relative
                                     mt-7
-                                    flex w-full
-                                    items-center justify-center
+                                    flex
+                                    w-full
+                                    items-center
+                                    justify-center
                                     overflow-hidden
                                     rounded-xl
                                     bg-glow
-                                    px-4 py-3.5
-                                    text-sm font-semibold
+                                    px-4
+                                    py-3.5
+                                    text-sm
+                                    font-semibold
                                     text-ink-950
                                     shadow-lg
                                     shadow-glow/10
@@ -1011,8 +1294,11 @@
 
                                 <svg
                                     class="
-                                        relative z-10
-                                        ml-2 h-4 w-4
+                                        relative
+                                        z-10
+                                        ml-2
+                                        h-4
+                                        w-4
                                         transition-transform
                                         duration-300
                                         group-hover:translate-x-1
@@ -1033,7 +1319,8 @@
                                 {{-- Button shine --}}
                                 <div
                                     class="
-                                        absolute inset-0
+                                        absolute
+                                        inset-0
                                         translate-x-[-110%]
                                         bg-gradient-to-r
                                         from-transparent
@@ -1057,14 +1344,23 @@
                         <div
                             class="
                                 mt-7
-                                border-t border-ink-700
+                                border-t
+                                border-ink-700
                                 pt-5
                                 text-center
                             "
                         >
-                            <p class="text-xs leading-5 text-muted/60">
+
+                            <p
+                                class="
+                                    text-xs
+                                    leading-5
+                                    text-muted/60
+                                "
+                            >
                                 {{ __('luma.login.privacy') }}
                             </p>
+
                         </div>
 
                     </div>
@@ -1092,4 +1388,5 @@
     </main>
 
 </body>
+
 </html>
