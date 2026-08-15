@@ -1,18 +1,13 @@
 <div
     class="
         inline-flex
-        shrink-0
         items-center
+        gap-0.5
         rounded-lg
-        border
-        border-ink-700
-        bg-ink-900/90
+        bg-ink-800/80
         p-0.5
-        shadow-lg
-        shadow-black/10
-        backdrop-blur
-        sm:p-1
     "
+    aria-label="Language"
 >
 
     {{-- English --}}
@@ -21,38 +16,34 @@
         action="{{ route('locale.update', 'en') }}"
         class="m-0"
     >
-
         @csrf
 
         <button
             type="submit"
-            aria-label="English"
             title="English"
+            aria-label="English"
             class="
                 flex
-                min-h-8
+                h-7
                 min-w-9
                 items-center
                 justify-center
                 rounded-md
                 px-2
-                text-[10px]
-                font-bold
-                tracking-[0.08em]
-                transition
-                sm:min-w-10
-                sm:px-2.5
-                sm:text-xs
+                text-[11px]
+                font-semibold
+                tracking-wide
+                transition-all
+                duration-200
 
                 {{ app()->isLocale('en')
-                    ? 'bg-glow text-ink-950'
-                    : 'text-muted hover:bg-ink-800 hover:text-paper'
+                    ? 'bg-paper text-ink-950 shadow-sm'
+                    : 'text-muted hover:bg-ink-700 hover:text-paper'
                 }}
             "
         >
             EN
         </button>
-
     </form>
 
 
@@ -62,38 +53,34 @@
         action="{{ route('locale.update', 'mk') }}"
         class="m-0"
     >
-
         @csrf
 
         <button
             type="submit"
-            aria-label="Македонски"
             title="Македонски"
+            aria-label="Македонски"
             class="
                 flex
-                min-h-8
+                h-7
                 min-w-9
                 items-center
                 justify-center
                 rounded-md
                 px-2
-                text-[10px]
-                font-bold
-                tracking-[0.08em]
-                transition
-                sm:min-w-10
-                sm:px-2.5
-                sm:text-xs
+                text-[11px]
+                font-semibold
+                tracking-wide
+                transition-all
+                duration-200
 
                 {{ app()->isLocale('mk')
-                    ? 'bg-glow text-ink-950'
-                    : 'text-muted hover:bg-ink-800 hover:text-paper'
+                    ? 'bg-paper text-ink-950 shadow-sm'
+                    : 'text-muted hover:bg-ink-700 hover:text-paper'
                 }}
             "
         >
             MK
         </button>
-
     </form>
 
 </div>
