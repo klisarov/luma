@@ -10,6 +10,7 @@
     "
 >
 
+    {{-- EN --}}
     <form
         method="POST"
         action="{{ route('locale.update', 'en') }}"
@@ -21,6 +22,7 @@
             type="submit"
             aria-label="English"
             title="English"
+            style="color: #ffffff !important;"
             class="
                 flex
                 h-8
@@ -37,8 +39,8 @@
                 duration-200
 
                 {{ app()->isLocale('en')
-                    ? 'border-glow bg-glow/15 text-glow'
-                    : 'border-transparent bg-transparent text-white hover:bg-ink-800'
+                    ? 'border-glow bg-glow/20'
+                    : 'border-transparent bg-transparent hover:bg-ink-800'
                 }}
             "
         >
@@ -47,6 +49,7 @@
     </form>
 
 
+    {{-- MK --}}
     <form
         method="POST"
         action="{{ route('locale.update', 'mk') }}"
@@ -58,6 +61,7 @@
             type="submit"
             aria-label="Македонски"
             title="Македонски"
+            style="color: #ffffff !important;"
             class="
                 flex
                 h-8
@@ -74,8 +78,8 @@
                 duration-200
 
                 {{ app()->isLocale('mk')
-                    ? 'border-glow bg-glow/15 text-glow'
-                    : 'border-transparent bg-transparent text-white hover:bg-ink-800'
+                    ? 'border-glow bg-glow/20'
+                    : 'border-transparent bg-transparent hover:bg-ink-800'
                 }}
             "
         >
