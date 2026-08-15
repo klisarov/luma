@@ -1,4 +1,4 @@
-<x-layouts.app title="Today">
+<x-layouts.app :title="__('luma.dashboard.title')">
 
     <div class="mx-auto max-w-5xl space-y-8">
 
@@ -18,7 +18,7 @@
                 </p>
 
                 <h1 class="font-display text-2xl font-semibold text-paper sm:text-3xl">
-                    Today's plan
+                    {{ __('luma.dashboard.todays_plan') }}
                 </h1>
             </div>
 
@@ -98,7 +98,7 @@
         <p class="text-sm text-muted">
 
             <span id="completion-sentence">
-                {{ $completionPercentage }}% of today's tasks are done.
+                {{ __('luma.dashboard.completion', ['percentage' => $completionPercentage]) }}
             </span>
 
         </p>
@@ -178,7 +178,7 @@
                             <div class="flex flex-wrap items-center gap-2">
 
                                 <h2 class="text-sm font-semibold text-paper">
-                                    Add Luma to your iPhone
+                                    {{ __('luma.dashboard.add_to_iphone') }}
                                 </h2>
 
                                 <span
@@ -194,7 +194,7 @@
                                         text-glow
                                     "
                                 >
-                                    Recommended
+                                    {{ __('luma.dashboard.recommended') }}
                                 </span>
 
                             </div>
@@ -209,8 +209,7 @@
                                     text-muted
                                 "
                             >
-                                Add Luma to your Home Screen for the full
-                                app experience, reminders and push notifications.
+                                {{ __('luma.dashboard.iphone_description') }}
                             </p>
 
                         </div>
@@ -247,7 +246,7 @@
                             </svg>
 
                             <span class="font-medium text-paper">
-                                Share
+                                {{ __('luma.dashboard.share') }}
                             </span>
 
                             <span class="text-muted/50">
@@ -255,7 +254,7 @@
                             </span>
 
                             <span class="font-semibold text-glow">
-                                Add to Home Screen
+                                {{ __('luma.dashboard.add_to_home_screen') }}
                             </span>
 
                         </div>
@@ -335,7 +334,7 @@
                                 id="notification-prompt-title"
                                 class="text-sm font-semibold text-paper"
                             >
-                                Stay on track
+                                {{ __('luma.dashboard.stay_on_track') }}
                             </h2>
 
 
@@ -349,8 +348,7 @@
                                     text-muted
                                 "
                             >
-                                Allow Luma to notify you about tasks,
-                                reminders and upcoming events.
+                                {{ __('luma.dashboard.allow_notifications_description') }}
                             </p>
 
                         </div>
@@ -375,7 +373,7 @@
                             disabled:opacity-60
                         "
                     >
-                        Allow notifications
+                        {{ __('luma.dashboard.allow_notifications') }}
                     </button>
 
                 </div>
@@ -458,7 +456,7 @@
             >
 
                 <h2 class="font-display text-base font-semibold">
-                    Today's obligations
+                    {{ __('luma.dashboard.todays_obligations') }}
                 </h2>
 
 
@@ -466,8 +464,11 @@
                     id="today-task-count"
                     class="font-mono text-xs text-muted"
                 >
-                    {{ $todaysTasks->count() }}
-                    task{{ $todaysTasks->count() === 1 ? '' : 's' }}
+                    {{ trans_choice(
+                        'luma.dashboard.task_count',
+                        $todaysTasks->count(),
+                        ['count' => $todaysTasks->count()]
+                    ) }}
                 </span>
 
             </div>
@@ -603,7 +604,7 @@
                                 @if ($task->priority)
 
                                     <span class="capitalize">
-                                        {{ $task->priority }}
+                                        {{ __('luma.common.' . $task->priority) }}
                                     </span>
 
                                 @endif
@@ -626,7 +627,7 @@
                                     text-violet-soft
                                 "
                             >
-                                Work
+                                {{ __('luma.common.work') }}
                             </span>
 
                         @endif
@@ -639,7 +640,7 @@
                     <div class="px-5 py-10 text-center">
 
                         <p class="text-sm text-muted">
-                            Nothing on the books for today.
+                            {{ __('luma.dashboard.nothing_today') }}
                         </p>
 
                     </div>
@@ -675,12 +676,12 @@
                 <div>
 
                     <h2 class="font-display text-base font-semibold">
-                        Remaining obligations
+                        {{ __('luma.dashboard.remaining_obligations') }}
                     </h2>
 
 
                     <p class="mt-0.5 text-xs text-muted">
-                        Upcoming, overdue and unscheduled tasks
+                        {{ __('luma.dashboard.remaining_description') }}
                     </p>
 
                 </div>
@@ -691,8 +692,11 @@
                     class="font-mono text-xs text-muted"
                     data-count="{{ $remainingTasks->count() }}"
                 >
-                    {{ $remainingTasks->count() }}
-                    task{{ $remainingTasks->count() === 1 ? '' : 's' }}
+                    {{ trans_choice(
+                        'luma.dashboard.task_count',
+                        $remainingTasks->count(),
+                        ['count' => $remainingTasks->count()]
+                    ) }}
                 </span>
 
             </div>
@@ -812,13 +816,13 @@
                                 @if ($task->due_at)
 
                                     <span class="font-mono">
-                                        {{ $task->due_at->format('j M · H:i') }}
+                                        {{ $task->due_at->locale(app()->getLocale())->translatedFormat('j M · H:i') }}
                                     </span>
 
                                 @else
 
                                     <span class="font-mono">
-                                        No deadline
+                                        {{ __('luma.common.no_deadline') }}
                                     </span>
 
                                 @endif
@@ -840,7 +844,7 @@
                                             text-red-400
                                         "
                                     >
-                                        Overdue
+                                        {{ __('luma.common.overdue') }}
                                     </span>
 
                                 @endif
@@ -850,7 +854,7 @@
                                 @if ($task->priority)
 
                                     <span class="capitalize">
-                                        {{ $task->priority }}
+                                        {{ __('luma.common.' . $task->priority) }}
                                     </span>
 
                                 @endif
@@ -873,7 +877,7 @@
                                     text-violet-soft
                                 "
                             >
-                                Work
+                                {{ __('luma.common.work') }}
                             </span>
 
                         @endif
@@ -889,7 +893,7 @@
                     >
 
                         <p class="text-sm text-muted">
-                            You're all caught up.
+                            {{ __('luma.dashboard.all_caught_up') }}
                         </p>
 
                     </div>
@@ -912,7 +916,7 @@
                 <div class="mb-3 flex items-center justify-between">
 
                     <h2 class="font-display text-base font-semibold">
-                        Calendars
+                        {{ __('luma.dashboard.calendars') }}
                     </h2>
 
                 </div>
@@ -981,7 +985,7 @@
                                     method="POST"
                                     action="{{ route('calendars.destroy', $calendar) }}"
                                     class="shrink-0"
-                                    onsubmit="return confirm('Delete {{ addslashes($calendar->name) }} and all events inside it?')"
+                                    onsubmit="return confirm(@js(__('luma.dashboard.delete_calendar_confirm', ['name' => $calendar->name])))"
                                 >
 
                                     @csrf
@@ -999,8 +1003,8 @@
                                             hover:bg-red-500/10
                                             hover:text-red-400
                                         "
-                                        aria-label="Delete {{ $calendar->name }}"
-                                        title="Delete calendar"
+                                        aria-label="{{ __('luma.dashboard.delete_calendar_aria', ['name' => $calendar->name]) }}"
+                                        title="{{ __('luma.dashboard.delete_calendar') }}"
                                     >
 
                                         <svg
@@ -1037,7 +1041,7 @@
 
 
                                         <p class="font-mono text-muted">
-                                            {{ $event->starts_at->format('j M · H:i') }}
+                                            {{ $event->starts_at->locale(app()->getLocale())->translatedFormat('j M · H:i') }}
                                         </p>
 
 
@@ -1055,7 +1059,7 @@
                                 @empty
 
                                     <li class="text-xs text-muted/70">
-                                        No upcoming events
+                                        {{ __('luma.dashboard.no_upcoming_events') }}
                                     </li>
 
                                 @endforelse
@@ -1084,6 +1088,77 @@
         <script>
 
             document.addEventListener('DOMContentLoaded', () => {
+
+                const translations = {
+                    notificationsBlocked:
+                        @json(__('luma.dashboard.notifications_blocked')),
+
+                    notificationsBlockedIphone:
+                        @json(__('luma.dashboard.notifications_blocked_iphone')),
+
+                    notificationsBlockedBrowser:
+                        @json(__('luma.dashboard.notifications_blocked_browser')),
+
+                    notificationsBlockedDevice:
+                        @json(__('luma.dashboard.notifications_blocked_device')),
+
+                    stayOnTrack:
+                        @json(__('luma.dashboard.stay_on_track')),
+
+                    allowNotifications:
+                        @json(__('luma.dashboard.allow_notifications')),
+
+                    allowNotificationsDescription:
+                        @json(__('luma.dashboard.allow_notifications_description')),
+
+                    enablingNotifications:
+                        @json(__('luma.dashboard.enabling_notifications')),
+
+                    connectingNotifications:
+                        @json(__('luma.dashboard.connecting_notifications')),
+
+                    enabled:
+                        @json(__('luma.dashboard.enabled')),
+
+                    notificationsEnabled:
+                        @json(__('luma.dashboard.notifications_enabled')),
+
+                    unableToEnableNotifications:
+                        @json(__('luma.dashboard.unable_to_enable_notifications')),
+
+                    serviceWorkersUnsupported:
+                        @json(__('luma.dashboard.service_workers_unsupported')),
+
+                    pushKeysMissing:
+                        @json(__('luma.dashboard.push_keys_missing')),
+
+                    notificationsUnsupported:
+                        @json(__('luma.dashboard.notifications_unsupported')),
+
+                    webPushUnsupported:
+                        @json(__('luma.dashboard.web_push_unsupported')),
+
+                    vapidMissing:
+                        @json(__('luma.dashboard.vapid_missing')),
+
+                    notificationPermissionNotGranted:
+                        @json(__('luma.dashboard.notification_permission_not_granted')),
+
+                    unableSavePushSubscription:
+                        @json(__('luma.dashboard.unable_save_push_subscription')),
+
+                    completion:
+                        @json(__('luma.dashboard.completion')),
+
+                    taskSingular:
+                        @json(__('luma.dashboard.task_singular')),
+
+                    taskPlural:
+                        @json(__('luma.dashboard.task_plural')),
+
+                    allCaughtUp:
+                        @json(__('luma.dashboard.all_caught_up')),
+                };
 
                 const circumference =
                     2 * Math.PI * 42;
@@ -1273,7 +1348,7 @@
                     ) {
 
                         throw new Error(
-                            'Service workers are not supported in this browser.'
+                            translations.serviceWorkersUnsupported
                         );
 
                     }
@@ -1320,7 +1395,7 @@
                     ) {
 
                         throw new Error(
-                            'The browser did not return push encryption keys.'
+                            translations.pushKeysMissing
                         );
 
                     }
@@ -1396,7 +1471,7 @@
 
 
                         throw new Error(
-                            `Unable to save push subscription: ${body}`
+                            translations.unableSavePushSubscription.replace(':error', body)
                         );
 
                     }
@@ -1418,7 +1493,7 @@
                     ) {
 
                         throw new Error(
-                            'Notifications are not supported in this browser.'
+                            translations.notificationsUnsupported
                         );
 
                     }
@@ -1432,7 +1507,7 @@
                     ) {
 
                         throw new Error(
-                            'Web Push is not supported in this browser.'
+                            translations.webPushUnsupported
                         );
 
                     }
@@ -1441,7 +1516,7 @@
                     if (!vapidPublicKey) {
 
                         throw new Error(
-                            'VAPID public key is missing.'
+                            translations.vapidMissing
                         );
 
                     }
@@ -1457,7 +1532,7 @@
                     ) {
 
                         throw new Error(
-                            'Notifications are blocked in your device settings.'
+                            translations.notificationsBlockedDevice
                         );
 
                     }
@@ -1481,7 +1556,7 @@
                     ) {
 
                         throw new Error(
-                            'Notification permission was not granted.'
+                            translations.notificationPermissionNotGranted
                         );
 
                     }
@@ -1631,7 +1706,7 @@
 
                             notificationPromptTitle
                                 .textContent =
-                                'Notifications are blocked';
+                                translations.notificationsBlocked;
 
                         }
 
@@ -1639,8 +1714,8 @@
                         setPushStatus(
 
                             isIPhone
-                                ? 'Notifications are blocked. Open your iPhone settings and allow notifications for Luma.'
-                                : 'Notifications are blocked in your browser settings.',
+                                ? translations.notificationsBlockedIphone
+                                : translations.notificationsBlockedBrowser,
 
                             'error'
 
@@ -1731,7 +1806,7 @@
 
                         notificationPromptTitle
                             .textContent =
-                            'Stay on track';
+                            translations.stayOnTrack;
 
                     }
 
@@ -1754,13 +1829,13 @@
 
                         enableNotificationsButton
                             .textContent =
-                            'Allow notifications';
+                            translations.allowNotifications;
 
                     }
 
 
                     setPushStatus(
-                        'Allow Luma to notify you about tasks, reminders and upcoming events.',
+                        translations.allowNotificationsDescription,
                         'muted'
                     );
 
@@ -1790,11 +1865,11 @@
 
                             enableNotificationsButton
                                 .textContent =
-                                'Enabling...';
+                                translations.enablingNotifications;
 
 
                             setPushStatus(
-                                'Connecting Luma notifications...',
+                                translations.connectingNotifications,
                                 'info'
                             );
 
@@ -1806,11 +1881,11 @@
 
                                 enableNotificationsButton
                                     .textContent =
-                                    'Enabled ✓';
+                                    translations.enabled;
 
 
                                 setPushStatus(
-                                    'Notifications are enabled.',
+                                    translations.notificationsEnabled,
                                     'success'
                                 );
 
@@ -1860,7 +1935,7 @@
 
                                         notificationPromptTitle
                                             .textContent =
-                                            'Notifications are blocked';
+                                            translations.notificationsBlocked;
 
                                     }
 
@@ -1868,8 +1943,8 @@
                                     setPushStatus(
 
                                         isIPhone
-                                            ? 'Notifications are blocked. Open iPhone settings and allow notifications for Luma.'
-                                            : 'Notifications are blocked in your browser settings.',
+                                            ? translations.notificationsBlockedIphone
+                                            : translations.notificationsBlockedBrowser,
 
                                         'error'
 
@@ -1892,7 +1967,7 @@
                                     setPushStatus(
 
                                         error.message ??
-                                        'Unable to enable notifications.',
+                                        translations.unableToEnableNotifications,
 
                                         'error'
 
@@ -2228,7 +2303,7 @@
                     if (sentence) {
 
                         sentence.textContent =
-                            `${percentage}% of today's tasks are done.`;
+                            translations.completion.replace(':percentage', percentage);
 
                     }
 
@@ -2278,10 +2353,10 @@
 
 
                     countElement.textContent =
-                        `${count} task${
+                        `${count} ${
                             count === 1
-                                ? ''
-                                : 's'
+                                ? translations.taskSingular
+                                : translations.taskPlural
                         }`;
 
 
@@ -2316,7 +2391,7 @@
                             empty.innerHTML = `
 
                                 <p class="text-sm text-muted">
-                                    You're all caught up.
+                                    {{ __('luma.dashboard.all_caught_up') }}
                                 </p>
 
                             `;

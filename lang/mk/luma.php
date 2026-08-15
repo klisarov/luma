@@ -3,18 +3,40 @@
 return [
 
     'nav' => [
+
+        'home' => 'Luma почетна',
+
         'today' => 'Денес',
+
         'work_log' => 'Работен дневник',
+
         'fitness' => 'Фитнес',
+
         'calendars' => 'Календари',
+
         'categories' => 'Категории',
+
         'new_category' => 'Нова категорија',
+
         'category_name' => 'Име на категорија',
+
         'add_category' => 'Додај категорија',
+
         'profile' => 'Профил',
+
         'logout' => 'Одјави се',
+
         'open_navigation' => 'Отвори навигација',
+
         'close_navigation' => 'Затвори навигација',
+
+        'delete_category' => 'Избриши категорија',
+
+        'delete_category_aria' => 'Избриши ја категоријата :category',
+
+        'delete_category_confirm' =>
+            'Да се избрише :category? Задачите ќе останат, но ќе бидат отстранети од оваа категорија.',
+
     ],
 
     'common' => [

@@ -8,20 +8,42 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'nav' => [
-        'today' => 'Today',
-        'work_log' => 'Work log',
-        'fitness' => 'Fitness',
-        'calendars' => 'Calendars',
-        'categories' => 'Categories',
-        'new_category' => 'New category',
-        'category_name' => 'Category name',
-        'add_category' => 'Add category',
-        'profile' => 'Profile',
-        'logout' => 'Log out',
-        'open_navigation' => 'Open navigation',
-        'close_navigation' => 'Close navigation',
-    ],
+        'nav' => [
+
+            'home' => 'Luma home',
+
+            'today' => 'Today',
+
+            'work_log' => 'Work log',
+
+            'fitness' => 'Fitness',
+
+            'calendars' => 'Calendars',
+
+            'categories' => 'Categories',
+
+            'new_category' => 'New category',
+
+            'category_name' => 'Category name',
+
+            'add_category' => 'Add category',
+
+            'profile' => 'Profile',
+
+            'logout' => 'Log out',
+
+            'open_navigation' => 'Open navigation',
+
+            'close_navigation' => 'Close navigation',
+
+            'delete_category' => 'Delete category',
+
+            'delete_category_aria' => 'Delete :category',
+
+            'delete_category_confirm' =>
+                'Delete :category? Tasks will be kept, but removed from this category.',
+
+        ],
 
         'notifications' => [
 

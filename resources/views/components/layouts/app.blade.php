@@ -1,7 +1,7 @@
 @props(['title' => null])
 
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="{{ app()->getLocale() }}" class="h-full">
 <head>
     <meta charset="utf-8">
 
@@ -68,7 +68,7 @@
             <a
                 href="{{ route('dashboard') }}"
                 class="inline-flex items-center"
-                aria-label="Luma home"
+                aria-label="{{ __('luma.nav.home') }}"
             >
                 <img
                     src="{{ asset('images/luma-logo.png') }}"
@@ -93,7 +93,7 @@
                     hover:border-ink-600
                     hover:bg-ink-800
                 "
-                aria-label="Open navigation"
+                aria-label="{{ __('luma.nav.open_navigation') }}"
             >
                 <svg
                     class="h-5 w-5"
@@ -177,7 +177,7 @@
                         href="{{ route('dashboard') }}"
                         @click="mobileMenuOpen = false"
                         class="inline-flex items-center"
-                        aria-label="Luma home"
+                        aria-label="{{ __('luma.nav.home') }}"
                     >
                         <img
                             src="{{ asset('images/luma-logo.png') }}"
@@ -199,7 +199,7 @@
                             hover:bg-ink-800
                             hover:text-paper
                         "
-                        aria-label="Close navigation"
+                        aria-label="{{ __('luma.nav.close_navigation') }}"
                     >
                         <svg
                             class="h-5 w-5"
@@ -340,7 +340,7 @@
                                 />
                             </svg>
 
-                            Fitness
+                            {{ __('luma.nav.fitness') }}
                         </a>
 
 
@@ -382,7 +382,7 @@
                                 />
                             </svg>
 
-                            Calendars
+                            {{ __('luma.nav.calendars') }}
                         </a>
 
                     </div>
@@ -459,7 +459,7 @@
                                         method="POST"
                                         action="{{ route('categories.destroy', $sidebarCategory) }}"
                                         class="shrink-0 pr-2"
-                                        onsubmit="return confirm('Delete {{ addslashes($sidebarCategory->name) }}? Tasks will be kept, but removed from this category.')"
+                                        onsubmit="return confirm(@js(__('luma.nav.delete_category_confirm', ['category' => $sidebarCategory->name])))"
                                     >
                                         @csrf
                                         @method('DELETE')
@@ -474,8 +474,8 @@
                                                 hover:bg-red-500/10
                                                 hover:text-red-400
                                             "
-                                            aria-label="Delete {{ $sidebarCategory->name }}"
-                                            title="Delete category"
+                                            aria-label="{{ __('luma.nav.delete_category_aria', ['category' => $sidebarCategory->name]) }}"
+                                            title="{{ __('luma.nav.delete_category') }}"
                                         >
                                             <svg
                                                 class="h-4 w-4"
@@ -531,7 +531,7 @@
                                         />
                                     </svg>
 
-                                    New category
+                                    {{ __('luma.nav.new_category') }}
                                 </button>
 
 
@@ -548,7 +548,7 @@
                                     <input
                                         type="text"
                                         name="name"
-                                        placeholder="Category name"
+                                        placeholder="{{ __('luma.nav.category_name') }}"
                                         required
                                         class="
                                             w-full
@@ -576,7 +576,7 @@
                                             hover:brightness-110
                                         "
                                     >
-                                        Add category
+                                        {{ __('luma.nav.add_category') }}
                                     </button>
 
                                 </form>
@@ -588,7 +588,15 @@
 
                 </nav>
 
-                <x-locale-switcher />
+                <div
+                    class="
+                        shrink-0
+                        border-t border-ink-700
+                        px-4 py-3
+                    "
+                >
+                    <x-locale-switcher />
+                </div>
 
                 {{-- ===================================================== --}}
                 {{-- MOBILE PROFILE / LOGOUT --}}
@@ -716,7 +724,7 @@
                                 />
                             </svg>
 
-                            Log out
+                            {{ __('luma.nav.logout') }}
                         </button>
 
                     </form>
@@ -754,7 +762,7 @@
                 <a
                     href="{{ route('dashboard') }}"
                     class="inline-flex items-center"
-                    aria-label="Luma home"
+                    aria-label="{{ __('luma.nav.home') }}"
                 >
                     <img
                         src="{{ asset('images/luma-logo.png') }}"
@@ -887,7 +895,7 @@
                             />
                         </svg>
 
-                        Fitness
+                        {{ __('luma.nav.fitness') }}
                     </a>
 
 
@@ -928,7 +936,7 @@
                             />
                         </svg>
 
-                        Calendars
+                        {{ __('luma.nav.calendars') }}
                     </a>
 
                 </div>
@@ -1004,7 +1012,7 @@
                                     method="POST"
                                     action="{{ route('categories.destroy', $sidebarCategory) }}"
                                     class="shrink-0 pr-1.5"
-                                    onsubmit="return confirm('Delete {{ addslashes($sidebarCategory->name) }}? Tasks will be kept, but removed from this category.')"
+                                    onsubmit="return confirm(@js(__('luma.nav.delete_category_confirm', ['category' => $sidebarCategory->name])))"
                                 >
                                     @csrf
                                     @method('DELETE')
@@ -1021,8 +1029,8 @@
                                             hover:!text-red-400
                                             focus:text-muted
                                         "
-                                        aria-label="Delete {{ $sidebarCategory->name }}"
-                                        title="Delete category"
+                                        aria-label="{{ __('luma.nav.delete_category_aria', ['category' => $sidebarCategory->name]) }}"
+                                        title="{{ __('luma.nav.delete_category') }}"
                                     >
                                         <svg
                                             class="h-3.5 w-3.5"
@@ -1079,7 +1087,7 @@
                                     />
                                 </svg>
 
-                                New category
+                                {{ __('luma.nav.new_category') }}
                             </button>
 
 
@@ -1096,7 +1104,7 @@
                                 <input
                                     type="text"
                                     name="name"
-                                    placeholder="Name"
+                                    placeholder="{{ __('luma.nav.category_name') }}"
                                     required
                                     class="
                                         w-full
@@ -1124,7 +1132,7 @@
                                         hover:brightness-110
                                     "
                                 >
-                                    Add category
+                                    {{ __('luma.nav.add_category') }}
                                 </button>
 
                             </form>
@@ -1149,6 +1157,10 @@
                     bg-ink-950
                 "
             >
+
+                <div class="mb-3">
+                    <x-locale-switcher />
+                </div>
 
                 <a
                     href="{{ route('profile.edit') }}"
@@ -1180,7 +1192,7 @@
                             hover:text-paper
                         "
                     >
-                        Log out
+                        {{ __('luma.nav.logout') }}
                     </button>
 
                 </form>
