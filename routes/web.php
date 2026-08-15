@@ -11,6 +11,7 @@ use App\Http\Controllers\WorkoutPlanController;
 use App\Notifications\TestPushNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LocaleController;
 
 
 /*
@@ -249,6 +250,10 @@ Route::middleware('auth')->group(function () {
         ->name('profile.destroy');
 });
 
+
+Route::post('/locale/{locale}', LocaleController::class)
+    ->whereIn('locale', ['en', 'mk'])
+    ->name('locale.update');
 
 /*
 |--------------------------------------------------------------------------
