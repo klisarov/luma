@@ -10,22 +10,33 @@ use Illuminate\Support\Facades\Auth;
 
 class SubcategoryController extends Controller
 {
-    public function store(Request $request, Category $category): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        abort_unless($category->user_id === Auth::id(), 403);
-
         $validated = $request->validate([
+            'category_id' => ['required', 'integer', 'exists:categories,id'],
             'name' => ['required', 'string', 'max:255'],
         ]);
 
-        $category->subcategories()->create($validated);
+        $category = Category::findOrFail($validated['category_id']);
+
+        abort_unless(
+            (int) $category->user_id === (int) Auth::id(),
+            403
+        );
+
+        $category->subcategories()->create([
+            'name' => $validated['name'],
+        ]);
 
         return back()->with('status', 'Subcategory created.');
     }
 
     public function destroy(Subcategory $subcategory): RedirectResponse
     {
-        abort_unless($subcategory->category->user_id === Auth::id(), 403);
+        abort_unless(
+            (int) $subcategory->category->user_id === (int) Auth::id(),
+            403
+        );
 
         $subcategory->delete();
 

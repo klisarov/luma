@@ -1,78 +1,349 @@
 <x-layouts.app :title="$category->name">
-    <div class="mx-auto max-w-3xl space-y-6">
-        <div class="flex items-center gap-2">
-            <span class="h-3 w-3 rounded-full" style="background-color: {{ $category->color }}"></span>
-            <h1 class="font-display text-2xl font-semibold">{{ $category->name }}</h1>
+    <div class="mx-auto max-w-4xl space-y-6">
+
+        {{-- ============================================================ --}}
+        {{-- HEADER --}}
+        {{-- ============================================================ --}}
+
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+
+            <div class="flex items-center gap-3">
+                <span
+                    class="h-3 w-3 shrink-0 rounded-full"
+                    style="background-color: {{ $category->color ?? '#F5B942' }}"
+                ></span>
+
+                <div>
+                    <h1 class="font-display text-2xl font-semibold text-paper">
+                        {{ $category->name }}
+                    </h1>
+
+                    <p class="mt-1 text-sm text-muted">
+                        {{ $category->tasks->count() }}
+                        task{{ $category->tasks->count() === 1 ? '' : 's' }}
+                    </p>
+                </div>
+            </div>
+
         </div>
 
-        {{-- Subcategories --}}
-        <div class="flex flex-wrap items-center gap-2">
-            @foreach ($category->subcategories as $sub)
-                <span class="rounded-full border border-ink-600 bg-ink-800 px-3 py-1 text-xs text-muted">{{ $sub->name }}</span>
-            @endforeach
-            <form method="POST" action="{{ route('subcategories.store', $category) }}" class="flex gap-1">
-                @csrf
-                <input type="text" name="name" placeholder="+ subcategory" required
-                       class="w-32 rounded-full border-ink-600 bg-ink-800 px-3 py-1 text-xs text-paper placeholder:text-muted/60 focus:border-glow focus:ring-glow">
-            </form>
-        </div>
 
-        {{-- Add task --}}
-        <form method="POST" action="{{ route('tasks.store') }}"
-              class="grid gap-3 rounded-xl2 border border-ink-700 bg-ink-800/60 p-4 sm:grid-cols-2">
-            @csrf
-            <input type="hidden" name="category_id" value="{{ $category->id }}">
-            <input type="text" name="title" placeholder="Task title" required
-                   class="sm:col-span-2 rounded-md border-ink-600 bg-ink-800 text-sm text-paper placeholder:text-muted/60 focus:border-glow focus:ring-glow">
+        {{-- ============================================================ --}}
+        {{-- STATUS / ERRORS --}}
+        {{-- ============================================================ --}}
 
-            @if ($category->subcategories->isNotEmpty())
-                <select name="subcategory_id" class="rounded-md border-ink-600 bg-ink-800 text-sm text-paper focus:border-glow focus:ring-glow">
-                    <option value="">No subcategory</option>
-                    @foreach ($category->subcategories as $sub)
-                        <option value="{{ $sub->id }}">{{ $sub->name }}</option>
+        @if (session('status'))
+            <div class="rounded-xl border border-sage/20 bg-sage/10 px-4 py-3 text-sm text-sage">
+                {{ session('status') }}
+            </div>
+        @endif
+
+        @if ($errors->any())
+            <div class="rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3">
+                <ul class="space-y-1 text-sm text-red-400">
+                    @foreach ($errors->all() as $error)
+                        <li>
+                            {{ $error }}
+                        </li>
                     @endforeach
-                </select>
-            @endif
+                </ul>
+            </div>
+        @endif
 
-            <input type="datetime-local" name="due_at"
-                   class="rounded-md border-ink-600 bg-ink-800 text-sm text-paper focus:border-glow focus:ring-glow">
 
-            <select name="reminder_offset_minutes" class="rounded-md border-ink-600 bg-ink-800 text-sm text-paper focus:border-glow focus:ring-glow">
-                <option value="">No reminder</option>
-                <option value="15">15 min before</option>
-                <option value="30">30 min before</option>
-                <option value="60">1 hour before</option>
-            </select>
+        {{-- ============================================================ --}}
+        {{-- SUBCATEGORIES --}}
+        {{-- ============================================================ --}}
 
-            <label class="flex items-center gap-2 text-sm text-muted">
-                <input type="checkbox" name="is_work_related" value="1" class="rounded border-ink-600 bg-ink-800 text-glow focus:ring-glow">
-                Work-related
-            </label>
+        <div class="rounded-xl2 border border-ink-700 bg-ink-800/60">
 
-            <button type="submit" class="sm:col-span-2 rounded-md bg-glow px-4 py-2 text-sm font-medium text-ink-950">Add task</button>
-        </form>
+            <div class="border-b border-ink-700 px-5 py-4">
+                <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
-        {{-- Task list --}}
-        <div class="divide-y divide-ink-700 rounded-xl2 border border-ink-700 bg-ink-800/60">
-            @forelse ($category->tasks as $task)
-                <div class="flex items-center justify-between px-5 py-3.5">
-                    <div class="min-w-0">
-                        <p class="truncate text-sm font-medium {{ $task->is_completed ? 'text-muted line-through' : 'text-paper' }}">
-                            {{ $task->title }}
-                        </p>
-                        <p class="text-xs text-muted font-mono">
-                            {{ $task->subcategory?->name }}
-                            @if ($task->due_at) · {{ $task->due_at->format('j M · H:i') }} @endif
+                    <div>
+                        <h2 class="font-display text-base font-semibold text-paper">
+                            Subcategories
+                        </h2>
+
+                        <p class="mt-1 text-xs text-muted">
+                            Organize tasks inside {{ $category->name }}.
                         </p>
                     </div>
-                    <form method="POST" action="{{ route('tasks.destroy', $task) }}">
-                        @csrf @method('DELETE')
-                        <button type="submit" class="text-xs text-muted hover:text-paper">Remove</button>
+
+
+                    {{-- Add subcategory --}}
+                    <form
+                        method="POST"
+                        action="{{ route('subcategories.store') }}"
+                        class="flex gap-2"
+                    >
+                        @csrf
+
+                        <input
+                            type="hidden"
+                            name="category_id"
+                            value="{{ $category->id }}"
+                        >
+
+                        <input
+                            type="text"
+                            name="name"
+                            value="{{ old('name') }}"
+                            placeholder="Subcategory name"
+                            required
+                            class="
+                                min-w-0
+                                rounded-md
+                                border-ink-600
+                                bg-ink-800
+                                text-sm text-paper
+                                placeholder:text-muted/60
+                                focus:border-glow
+                                focus:ring-glow
+                            "
+                        >
+
+                        <button
+                            type="submit"
+                            class="
+                                shrink-0
+                                rounded-md
+                                bg-glow
+                                px-4 py-2
+                                text-sm font-medium
+                                text-ink-950
+                                transition
+                                hover:brightness-110
+                            "
+                        >
+                            Add
+                        </button>
                     </form>
+
                 </div>
-            @empty
-                <p class="px-5 py-8 text-center text-sm text-muted">No tasks in this category yet.</p>
-            @endforelse
+            </div>
+
+
+            {{-- Subcategory list --}}
+            <div class="divide-y divide-ink-700">
+
+                @forelse ($category->subcategories as $subcategory)
+
+                    <div class="flex items-center justify-between gap-4 px-5 py-3.5">
+
+                        <div class="min-w-0">
+
+                            <p class="truncate text-sm font-medium text-paper">
+                                {{ $subcategory->name }}
+                            </p>
+
+                            <p class="mt-0.5 text-xs text-muted">
+                                {{ $subcategory->tasks->count() }}
+                                task{{ $subcategory->tasks->count() === 1 ? '' : 's' }}
+                            </p>
+
+                        </div>
+
+
+                        <form
+                            method="POST"
+                            action="{{ route('subcategories.destroy', $subcategory) }}"
+                            onsubmit="return confirm('Delete this subcategory? Tasks will remain.')"
+                            class="shrink-0"
+                        >
+                            @csrf
+                            @method('DELETE')
+
+                            <button
+                                type="submit"
+                                class="
+                                    rounded-md
+                                    px-2 py-1
+                                    text-xs text-muted
+                                    transition
+                                    hover:bg-red-500/10
+                                    hover:text-red-400
+                                "
+                            >
+                                Remove
+                            </button>
+                        </form>
+
+                    </div>
+
+                @empty
+
+                    <div class="px-5 py-8 text-center">
+                        <p class="text-sm text-muted">
+                            No subcategories yet.
+                        </p>
+                    </div>
+
+                @endforelse
+
+            </div>
+
         </div>
+
+
+        {{-- ============================================================ --}}
+        {{-- TASKS --}}
+        {{-- ============================================================ --}}
+
+        <div class="rounded-xl2 border border-ink-700 bg-ink-800/60">
+
+            <div class="flex items-center justify-between border-b border-ink-700 px-5 py-4">
+
+                <h2 class="font-display text-base font-semibold text-paper">
+                    Tasks
+                </h2>
+
+                <span class="font-mono text-xs text-muted">
+                    {{ $category->tasks->count() }}
+                </span>
+
+            </div>
+
+
+            <div class="divide-y divide-ink-700">
+
+                @forelse ($category->tasks as $task)
+
+                    <div
+                        class="flex items-center gap-3 px-5 py-3.5"
+                    >
+
+                        {{-- Completion indicator --}}
+                        <span
+                            class="
+                                flex h-5 w-5 shrink-0
+                                items-center justify-center
+                                rounded-full border
+                                {{ $task->is_completed
+                                    ? 'border-sage bg-sage/20'
+                                    : 'border-ink-600'
+                                }}
+                            "
+                        >
+                            @if ($task->is_completed)
+                                <svg
+                                    class="h-3 w-3 text-sage"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="3"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M5 13l4 4L19 7"
+                                    />
+                                </svg>
+                            @endif
+                        </span>
+
+
+                        {{-- Task content --}}
+                        <div class="min-w-0 flex-1">
+
+                            <p
+                                class="
+                                    truncate text-sm font-medium
+                                    {{ $task->is_completed
+                                        ? 'text-muted line-through'
+                                        : 'text-paper'
+                                    }}
+                                "
+                            >
+                                {{ $task->title }}
+                            </p>
+
+
+                            <div class="mt-1 flex flex-wrap items-center gap-2 text-xs text-muted">
+
+                                {{-- Subcategory --}}
+                                @if ($task->subcategory)
+                                    <span>
+                                        {{ $task->subcategory->name }}
+                                    </span>
+                                @endif
+
+
+                                {{-- Due --}}
+                                @if ($task->due_at)
+
+                                    <span class="font-mono">
+                                        {{ $task->due_at->format('j M · H:i') }}
+                                    </span>
+
+                                    @if (!$task->is_completed && $task->due_at->isPast())
+                                        <span
+                                            class="
+                                                rounded-full
+                                                bg-red-500/10
+                                                px-2 py-0.5
+                                                text-[11px]
+                                                font-medium
+                                                text-red-400
+                                            "
+                                        >
+                                            Overdue
+                                        </span>
+                                    @endif
+
+                                @else
+
+                                    <span class="font-mono">
+                                        No deadline
+                                    </span>
+
+                                @endif
+
+
+                                {{-- Priority --}}
+                                @if ($task->priority)
+                                    <span class="capitalize">
+                                        {{ $task->priority }}
+                                    </span>
+                                @endif
+
+                            </div>
+
+                        </div>
+
+
+                        {{-- Work --}}
+                        @if ($task->is_work_related)
+                            <span
+                                class="
+                                    shrink-0
+                                    rounded-full
+                                    bg-violet/15
+                                    px-2 py-0.5
+                                    text-[11px]
+                                    font-medium
+                                    text-violet-soft
+                                "
+                            >
+                                Work
+                            </span>
+                        @endif
+
+                    </div>
+
+                @empty
+
+                    <div class="px-5 py-10 text-center">
+                        <p class="text-sm text-muted">
+                            No tasks in this category yet.
+                        </p>
+                    </div>
+
+                @endforelse
+
+            </div>
+
+        </div>
+
     </div>
 </x-layouts.app>
