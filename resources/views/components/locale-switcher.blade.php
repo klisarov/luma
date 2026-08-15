@@ -10,7 +10,6 @@
     "
 >
 
-    {{-- English --}}
     <form
         method="POST"
         action="{{ route('locale.update', 'en') }}"
@@ -39,7 +38,7 @@
 
                 {{ app()->isLocale('en')
                     ? 'border-glow bg-glow/15 text-glow'
-                    : 'border-transparent bg-transparent text-muted hover:bg-ink-800 hover:text-paper'
+                    : 'border-transparent bg-transparent text-white hover:bg-ink-800'
                 }}
             "
         >
@@ -48,7 +47,6 @@
     </form>
 
 
-    {{-- Macedonian --}}
     <form
         method="POST"
         action="{{ route('locale.update', 'mk') }}"
@@ -77,7 +75,7 @@
 
                 {{ app()->isLocale('mk')
                     ? 'border-glow bg-glow/15 text-glow'
-                    : 'border-transparent bg-transparent text-muted hover:bg-ink-800 hover:text-paper'
+                    : 'border-transparent bg-transparent text-white hover:bg-ink-800'
                 }}
             "
         >
