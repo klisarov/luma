@@ -29,6 +29,7 @@
                 items-center
                 justify-center
                 rounded-md
+                border
                 px-2.5
                 text-xs
                 font-bold
@@ -37,8 +38,8 @@
                 duration-200
 
                 {{ app()->isLocale('en')
-                    ? 'bg-glow text-black shadow-sm'
-                    : 'bg-transparent text-gray-500 hover:bg-ink-800 hover:text-gray-200'
+                    ? 'border-glow bg-glow/15 text-glow'
+                    : 'border-transparent bg-transparent text-muted hover:bg-ink-800 hover:text-paper'
                 }}
             "
         >
@@ -66,6 +67,7 @@
                 items-center
                 justify-center
                 rounded-md
+                border
                 px-2.5
                 text-xs
                 font-bold
@@ -74,8 +76,8 @@
                 duration-200
 
                 {{ app()->isLocale('mk')
-                    ? 'bg-glow text-black shadow-sm'
-                    : 'bg-transparent text-gray-500 hover:bg-ink-800 hover:text-gray-200'
+                    ? 'border-glow bg-glow/15 text-glow'
+                    : 'border-transparent bg-transparent text-muted hover:bg-ink-800 hover:text-paper'
                 }}
             "
         >
