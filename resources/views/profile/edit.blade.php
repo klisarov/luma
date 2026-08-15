@@ -113,10 +113,11 @@
             </div>
 
 
+            {{-- Account state --}}
             <div
                 class="
-                    flex flex-wrap
-                    items-center gap-x-6 gap-y-2
+                    flex items-center
+                    gap-5
                     px-5 py-3
                     text-xs text-muted
                     sm:px-6
@@ -128,18 +129,30 @@
                     <span
                         class="
                             h-1.5 w-1.5
+                            shrink-0
                             rounded-full
                             bg-sage
                         "
                     ></span>
 
-                    Account active 
+                    <span>
+                        Account active
+                    </span>
 
                 </span>
 
 
+                <span
+                    class="
+                        h-4
+                        w-px
+                        bg-ink-600
+                    "
+                ></span>
+
+
                 <span class="font-mono">
-                    Europe/Skopje
+                    {{ auth()->user()->timezone ?? 'Europe/Skopje' }}
                 </span>
 
             </div>
@@ -150,24 +163,6 @@
         {{-- ============================================================ --}}
         {{-- STATUS --}}
         {{-- ============================================================ --}}
-
-        @if (session('status') === 'profile-updated')
-
-            <div
-                class="
-                    rounded-xl
-                    border border-sage/20
-                    bg-sage/10
-                    px-4 py-3
-                    text-sm
-                    text-sage
-                "
-            >
-                Profile updated successfully.
-            </div>
-
-        @endif
-
 
         @if (session('status') === 'password-updated')
 
@@ -185,229 +180,6 @@
             </div>
 
         @endif
-
-
-        {{-- ============================================================ --}}
-        {{-- PROFILE INFORMATION --}}
-        {{-- ============================================================ --}}
-
-        <section
-            class="
-                overflow-hidden
-                rounded-xl2
-                border border-ink-700
-                bg-ink-800/60
-            "
-        >
-
-            <div
-                class="
-                    flex items-start gap-3
-                    border-b border-ink-700
-                    px-5 py-4
-                    sm:px-6
-                "
-            >
-
-                <div
-                    class="
-                        flex h-10 w-10
-                        shrink-0
-                        items-center justify-center
-                        rounded-xl
-                        border border-glow/20
-                        bg-glow/10
-                        text-glow
-                    "
-                >
-
-                    <svg
-                        class="h-5 w-5"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="1.8"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M15.75 6.75a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a7.5 7.5 0 0115 0"
-                        />
-                    </svg>
-
-                </div>
-
-
-                <div>
-
-                    <h2
-                        class="
-                            font-display
-                            text-base font-semibold
-                            text-paper
-                        "
-                    >
-                        Profile information
-                    </h2>
-
-
-                    <p
-                        class="
-                            mt-1
-                            text-xs
-                            leading-5
-                            text-muted
-                        "
-                    >
-                        Update the name and email address associated with your
-                        Luma account.
-                    </p>
-
-                </div>
-
-            </div>
-
-
-            <form
-                method="POST"
-                action="{{ route('profile.update') }}"
-                class="space-y-5 p-5 sm:p-6"
-            >
-
-                @csrf
-                @method('PATCH')
-
-
-                {{-- Name --}}
-                <div>
-
-                    <label
-                        for="name"
-                        class="
-                            mb-1.5
-                            block
-                            text-xs font-medium
-                            text-muted
-                        "
-                    >
-                        Name
-                    </label>
-
-
-                    <input
-                        id="name"
-                        name="name"
-                        type="text"
-                        value="{{ old('name', auth()->user()->name) }}"
-                        autocomplete="name"
-                        required
-                        class="
-                            w-full
-                            rounded-lg
-                            border-ink-600
-                            bg-ink-900
-                            text-sm
-                            text-paper
-                            placeholder:text-muted/50
-                            focus:border-glow
-                            focus:ring-glow
-                        "
-                    >
-
-
-                    @error('name')
-
-                        <p
-                            class="
-                                mt-1.5
-                                text-xs
-                                text-red-400
-                            "
-                        >
-                            {{ $message }}
-                        </p>
-
-                    @enderror
-
-                </div>
-
-
-                {{-- Email --}}
-                <div>
-
-                    <label
-                        for="email"
-                        class="
-                            mb-1.5
-                            block
-                            text-xs font-medium
-                            text-muted
-                        "
-                    >
-                        Email
-                    </label>
-
-
-                    <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value="{{ old('email', auth()->user()->email) }}"
-                        autocomplete="username"
-                        required
-                        class="
-                            w-full
-                            rounded-lg
-                            border-ink-600
-                            bg-ink-900
-                            text-sm
-                            text-paper
-                            placeholder:text-muted/50
-                            focus:border-glow
-                            focus:ring-glow
-                        "
-                    >
-
-
-                    @error('email')
-
-                        <p
-                            class="
-                                mt-1.5
-                                text-xs
-                                text-red-400
-                            "
-                        >
-                            {{ $message }}
-                        </p>
-
-                    @enderror
-
-                </div>
-
-
-                <div class="flex justify-end">
-
-                    <button
-                        type="submit"
-                        class="
-                            rounded-lg
-                            bg-glow
-                            px-5 py-2.5
-                            text-sm font-semibold
-                            text-ink-950
-                            transition
-                            hover:brightness-110
-                        "
-                    >
-                        Save changes
-                    </button>
-
-                </div>
-
-            </form>
-
-        </section>
 
 
         {{-- ============================================================ --}}
@@ -470,7 +242,7 @@
                             text-paper
                         "
                     >
-                        Password
+                        Change password
                     </h2>
 
 
@@ -482,7 +254,7 @@
                             text-muted
                         "
                     >
-                        Keep your account secure with a strong password.
+                        Keep your Luma account secure with a strong password.
                     </p>
 
                 </div>
@@ -521,6 +293,7 @@
                         name="current_password"
                         type="password"
                         autocomplete="current-password"
+                        required
                         class="
                             w-full
                             rounded-lg
@@ -528,16 +301,14 @@
                             bg-ink-900
                             text-sm
                             text-paper
+                            placeholder:text-muted/50
                             focus:border-glow
                             focus:ring-glow
                         "
                     >
 
 
-                    @error(
-                        'current_password',
-                        'updatePassword'
-                    )
+                    @error('current_password', 'updatePassword')
 
                         <p
                             class="
@@ -575,6 +346,7 @@
                         name="password"
                         type="password"
                         autocomplete="new-password"
+                        required
                         class="
                             w-full
                             rounded-lg
@@ -582,16 +354,14 @@
                             bg-ink-900
                             text-sm
                             text-paper
+                            placeholder:text-muted/50
                             focus:border-glow
                             focus:ring-glow
                         "
                     >
 
 
-                    @error(
-                        'password',
-                        'updatePassword'
-                    )
+                    @error('password', 'updatePassword')
 
                         <p
                             class="
@@ -608,7 +378,7 @@
                 </div>
 
 
-                {{-- Confirm --}}
+                {{-- Confirm password --}}
                 <div>
 
                     <label
@@ -629,6 +399,7 @@
                         name="password_confirmation"
                         type="password"
                         autocomplete="new-password"
+                        required
                         class="
                             w-full
                             rounded-lg
@@ -636,6 +407,7 @@
                             bg-ink-900
                             text-sm
                             text-paper
+                            placeholder:text-muted/50
                             focus:border-glow
                             focus:ring-glow
                         "
@@ -644,20 +416,25 @@
                 </div>
 
 
-                <div class="flex justify-end">
+                <div
+                    class="
+                        flex
+                        justify-end
+                        border-t border-ink-700
+                        pt-5
+                    "
+                >
 
                     <button
                         type="submit"
                         class="
                             rounded-lg
-                            border border-ink-600
-                            bg-ink-700
+                            bg-glow
                             px-5 py-2.5
                             text-sm font-semibold
-                            text-paper
+                            text-ink-950
                             transition
-                            hover:border-glow/40
-                            hover:bg-ink-600
+                            hover:brightness-110
                         "
                     >
                         Update password
@@ -685,41 +462,139 @@
 
             <div
                 class="
+                    flex items-start gap-3
                     border-b border-ink-700
                     px-5 py-4
                     sm:px-6
                 "
             >
 
-                <h2
+                <div
                     class="
-                        font-display
-                        text-base font-semibold
-                        text-paper
+                        flex h-10 w-10
+                        shrink-0
+                        items-center justify-center
+                        rounded-xl
+                        border border-glow/20
+                        bg-glow/10
+                        text-glow
                     "
                 >
-                    Account
-                </h2>
+
+                    <svg
+                        class="h-5 w-5"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zM12 8.25h.008v.008H12V8.25z"
+                        />
+                    </svg>
+
+                </div>
 
 
-                <p
-                    class="
-                        mt-1
-                        text-xs
-                        text-muted
-                    "
-                >
-                    Luma account details.
-                </p>
+                <div>
+
+                    <h2
+                        class="
+                            font-display
+                            text-base font-semibold
+                            text-paper
+                        "
+                    >
+                        Account information
+                    </h2>
+
+
+                    <p
+                        class="
+                            mt-1
+                            text-xs
+                            leading-5
+                            text-muted
+                        "
+                    >
+                        Information associated with your Luma account.
+                    </p>
+
+                </div>
 
             </div>
 
 
             <div class="divide-y divide-ink-700">
 
+                {{-- Name --}}
                 <div
                     class="
-                        flex items-center justify-between
+                        flex items-center
+                        justify-between
+                        gap-5
+                        px-5 py-4
+                        sm:px-6
+                    "
+                >
+
+                    <span class="text-sm text-muted">
+                        Name
+                    </span>
+
+
+                    <span
+                        class="
+                            truncate
+                            text-right
+                            text-sm
+                            font-medium
+                            text-paper
+                        "
+                    >
+                        {{ auth()->user()->name }}
+                    </span>
+
+                </div>
+
+
+                {{-- Email --}}
+                <div
+                    class="
+                        flex items-center
+                        justify-between
+                        gap-5
+                        px-5 py-4
+                        sm:px-6
+                    "
+                >
+
+                    <span class="text-sm text-muted">
+                        Email
+                    </span>
+
+
+                    <span
+                        class="
+                            truncate
+                            text-right
+                            text-sm
+                            text-paper
+                        "
+                    >
+                        {{ auth()->user()->email }}
+                    </span>
+
+                </div>
+
+
+                {{-- Account ID --}}
+                <div
+                    class="
+                        flex items-center
+                        justify-between
                         gap-5
                         px-5 py-4
                         sm:px-6
@@ -729,6 +604,7 @@
                     <span class="text-sm text-muted">
                         Account ID
                     </span>
+
 
                     <span
                         class="
@@ -743,9 +619,11 @@
                 </div>
 
 
+                {{-- Member since --}}
                 <div
                     class="
-                        flex items-center justify-between
+                        flex items-center
+                        justify-between
                         gap-5
                         px-5 py-4
                         sm:px-6
@@ -755,6 +633,7 @@
                     <span class="text-sm text-muted">
                         Member since
                     </span>
+
 
                     <span
                         class="
@@ -769,9 +648,11 @@
                 </div>
 
 
+                {{-- Timezone --}}
                 <div
                     class="
-                        flex items-center justify-between
+                        flex items-center
+                        justify-between
                         gap-5
                         px-5 py-4
                         sm:px-6
@@ -781,6 +662,7 @@
                     <span class="text-sm text-muted">
                         Timezone
                     </span>
+
 
                     <span
                         class="
@@ -793,227 +675,6 @@
                     </span>
 
                 </div>
-
-            </div>
-
-        </section>
-
-
-        {{-- ============================================================ --}}
-        {{-- DANGER ZONE --}}
-        {{-- ============================================================ --}}
-
-        <section
-            x-data="{ confirmDelete: false }"
-            class="
-                overflow-hidden
-                rounded-xl2
-                border border-red-500/20
-                bg-red-500/[0.03]
-            "
-        >
-
-            <div
-                class="
-                    flex flex-col gap-4
-                    p-5
-                    sm:flex-row
-                    sm:items-center
-                    sm:justify-between
-                    sm:p-6
-                "
-            >
-
-                <div>
-
-                    <h2
-                        class="
-                            font-display
-                            text-base font-semibold
-                            text-red-400
-                        "
-                    >
-                        Delete account
-                    </h2>
-
-
-                    <p
-                        class="
-                            mt-1
-                            max-w-xl
-                            text-xs
-                            leading-5
-                            text-muted
-                        "
-                    >
-                        Permanently delete your Luma account and all data
-                        associated with it. This cannot be undone.
-                    </p>
-
-                </div>
-
-
-                <button
-                    type="button"
-                    @click="confirmDelete = true"
-                    class="
-                        shrink-0
-                        rounded-lg
-                        border border-red-500/30
-                        bg-red-500/10
-                        px-4 py-2.5
-                        text-xs font-semibold
-                        text-red-400
-                        transition
-                        hover:bg-red-500/20
-                    "
-                >
-                    Delete account
-                </button>
-
-            </div>
-
-
-            {{-- Delete confirmation --}}
-            <div
-                x-cloak
-                x-show="confirmDelete"
-                x-transition
-                class="
-                    border-t border-red-500/20
-                    bg-ink-900/50
-                    p-5
-                    sm:p-6
-                "
-            >
-
-                <form
-                    method="POST"
-                    action="{{ route('profile.destroy') }}"
-                    class="space-y-4"
-                >
-
-                    @csrf
-                    @method('DELETE')
-
-
-                    <div>
-
-                        <h3
-                            class="
-                                text-sm font-semibold
-                                text-paper
-                            "
-                        >
-                            Are you sure?
-                        </h3>
-
-
-                        <p
-                            class="
-                                mt-1
-                                text-xs
-                                leading-5
-                                text-muted
-                            "
-                        >
-                            Enter your password to permanently delete your
-                            account.
-                        </p>
-
-                    </div>
-
-
-                    <div>
-
-                        <label
-                            for="delete_password"
-                            class="sr-only"
-                        >
-                            Password
-                        </label>
-
-
-                        <input
-                            id="delete_password"
-                            name="password"
-                            type="password"
-                            placeholder="Your password"
-                            autocomplete="current-password"
-                            class="
-                                w-full
-                                rounded-lg
-                                border-ink-600
-                                bg-ink-900
-                                text-sm
-                                text-paper
-                                placeholder:text-muted/50
-                                focus:border-red-400
-                                focus:ring-red-400
-                                sm:max-w-md
-                            "
-                        >
-
-
-                        @error(
-                            'password',
-                            'userDeletion'
-                        )
-
-                            <p
-                                class="
-                                    mt-1.5
-                                    text-xs
-                                    text-red-400
-                                "
-                            >
-                                {{ $message }}
-                            </p>
-
-                        @enderror
-
-                    </div>
-
-
-                    <div class="flex flex-wrap gap-2">
-
-                        <button
-                            type="submit"
-                            class="
-                                rounded-lg
-                                bg-red-500
-                                px-4 py-2.5
-                                text-xs font-semibold
-                                text-white
-                                transition
-                                hover:bg-red-400
-                            "
-                        >
-                            Permanently delete
-                        </button>
-
-
-                        <button
-                            type="button"
-                            @click="confirmDelete = false"
-                            class="
-                                rounded-lg
-                                border border-ink-600
-                                bg-ink-800
-                                px-4 py-2.5
-                                text-xs font-medium
-                                text-muted
-                                transition
-                                hover:bg-ink-700
-                                hover:text-paper
-                            "
-                        >
-                            Cancel
-                        </button>
-
-                    </div>
-
-                </form>
 
             </div>
 
